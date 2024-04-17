@@ -1,7 +1,9 @@
 package live.jacobin.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import live.jacobin.util.CookieUtil;
 import live.jacobin.util.SessionUtil;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
@@ -18,6 +20,9 @@ public class LoginController {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private HttpServletResponse response;
+
     private final UserService userService;
 
     public LoginController(UserService userService) {
@@ -33,8 +38,6 @@ public class LoginController {
     public String requestLogin(@RequestParam String userName,
                                @RequestParam String password,
                                @RequestParam(required = false) String rememberMe, Model model) {
-
-        boolean rmbm = "Y".equals(rememberMe);
 
         User user = userService.selectUserByUserName(userName);
 
@@ -55,11 +58,11 @@ public class LoginController {
             HttpSession session = request.getSession();
             SessionUtil.storeLoginedUser(session, user);
 
-//            // Nếu người dùng tích chọn "Ghi nhớ tài khoản này" thì lưu thông tin người dùng vào Cookie
-//            if (rememberMe) {
-//                CookieUtil.storeUserCookie(resp, user);
-//            }
-//
+            // Nếu người dùng tích chọn "Ghi nhớ tài khoản này" thì lưu thông tin người dùng vào Cookie
+            if ("Y".equals(rememberMe)) {
+                CookieUtil.storeUserCookie(response, user);
+            }
+
 //            if (user.getRole().getRoleId() != 1) {
 //                // Lấy thông tin giỏ hàng của người dùng
 //                Cart cart = CartDB.selectCartByUser(SessionUtil.getLoginedUser(session));
