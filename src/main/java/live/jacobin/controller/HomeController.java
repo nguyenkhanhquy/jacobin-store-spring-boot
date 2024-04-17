@@ -41,7 +41,6 @@ public class HomeController {
 
         model.addAttribute("cId", null);
 
-        // Trả về tên của view để hiển thị
         return "home_page";
     }
 
