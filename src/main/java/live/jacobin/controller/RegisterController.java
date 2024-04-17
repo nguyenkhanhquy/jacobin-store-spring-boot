@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RegisterController {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
     private final UserService userService;
 
-    public RegisterController(UserService userService) {
+    public RegisterController(HttpServletRequest request, UserService userService) {
+        this.request = request;
         this.userService = userService;
     }
 
@@ -60,16 +60,15 @@ public class RegisterController {
         } else if (userService.checkUserNameExists(user.getUserName())) {
             message = "Tên đăng nhập đã tồn tại. " + "Vui lòng điền tên đăng nhập khác.";
         } else if (!user.getPassword().equals(passwordAgain)) {
-            message = "Mật khẩu không khớp. " + "Vui lòng nhập lại.";
+            message = "Mật khẩu nhập lại không khớp. " + "Vui lòng nhập lại.";
         } else {
             password = PasswordEncryptorUtil.toSHA1(password);
             user.setPassword(password);
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            message = "";
-            System.out.println(password);
-            System.out.println("verifyOTP");
+
+            return "customer/verify_otp_page";
         }
 
         model.addAttribute("user", user);

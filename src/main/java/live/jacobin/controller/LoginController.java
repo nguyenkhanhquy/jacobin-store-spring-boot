@@ -8,7 +8,6 @@ import live.jacobin.util.PasswordEncryptorUtil;
 import live.jacobin.util.SessionUtil;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private HttpServletResponse response;
+    private final HttpServletRequest request;
+    private final HttpServletResponse response;
 
     private final UserService userService;
 
-    public LoginController(UserService userService) {
+    public LoginController(HttpServletRequest request, HttpServletResponse response, UserService userService) {
+        this.request = request;
+        this.response = response;
         this.userService = userService;
     }
 
