@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import live.jacobin.util.CookieUtil;
+import live.jacobin.util.PasswordEncryptorUtil;
 import live.jacobin.util.SessionUtil;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
@@ -44,7 +45,7 @@ public class LoginController {
         String message;
 
         // Trường hợp có lỗi thì forward (chuyển hướng) tới login_page
-        if (user == null || !user.getPassword().equals(password)) {
+        if (user == null || !user.getPassword().equals(PasswordEncryptorUtil.toSHA1(password))) {
             message = "Tên đăng nhập hoặc mật khẩu không đúng!";
 
             // Lưu các thông tin vào model trước khi forward
