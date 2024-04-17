@@ -11,7 +11,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     Cart findCartByUser(User user);
 
-    @Query("SELECT c FROM Cart c WHERE c.items = :item")
+    @Query("SELECT c FROM Cart c JOIN c.items i WHERE i = :item")
     Cart findCartByLineItem(@Param("item") LineItem item);
 
 }

@@ -38,7 +38,8 @@ public class LoginController {
     @PostMapping("/login")
     public String requestLogin(@RequestParam String userName,
                                @RequestParam String password,
-                               @RequestParam(required = false) String rememberMe, Model model) {
+                               @RequestParam(required = false) String rememberMe,
+                               Model model) {
 
         User user = userService.selectUserByUserName(userName);
 
