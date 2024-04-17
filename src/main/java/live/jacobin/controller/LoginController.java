@@ -50,9 +50,8 @@ public class LoginController {
             // Forward (Chuyển hướng) tới trang login_page
             return "customer/login_page";
         }
-        // Trường hợp không có lỗi.
-        // Lưu thông tin người dùng vào Session và forward (Chuyển hướng) sang trang home_page
         else {
+            // Lưu thông tin người dùng vào Session
             HttpSession session = request.getSession();
             SessionUtil.storeLoginedUser(session, user);
 
