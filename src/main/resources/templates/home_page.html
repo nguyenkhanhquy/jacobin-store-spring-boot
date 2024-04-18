@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-footer">
                                 <a th:href="@{'/detail-product?pId=' + ${p.productId}}" class="btn btn-outline-dark">Chi tiết</a>
-                                <form th:action="@{/cart}" th:method="post" style="display: inline-block;">
+                                <form th:action="@{/cart}" th:method="POST" style="display: inline-block;">
                                     <input type="hidden" name="action" value="add">
                                     <input type="hidden" name="productId" th:value="${p.productId}">
                                     <button type="submit" class="btn btn-outline-primary">

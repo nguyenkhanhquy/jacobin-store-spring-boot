@@ -20,12 +20,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product) {
+    public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
 
     @Override
-    public void delete(Product product) {
+    public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
 
