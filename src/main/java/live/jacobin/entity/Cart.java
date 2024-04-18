@@ -13,6 +13,7 @@ import java.util.Locale;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class Cart {
 
     @Id

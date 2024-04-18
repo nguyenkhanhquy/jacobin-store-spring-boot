@@ -27,7 +27,7 @@ public class LogoutController {
         // Xoá Session
         HttpSession session = request.getSession();
         session.removeAttribute("loginedUser");
-//        session.removeAttribute("cart");
+        session.removeAttribute("cart");
 
         String message = "Đăng xuất thành công!";
         model.addAttribute("message", message);

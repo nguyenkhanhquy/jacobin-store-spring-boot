@@ -45,9 +45,9 @@
             </form>
             <a class="btn btn-success position-relative" th:href="@{/cart}">
                 <i class="fa fa-shopping-cart">&nbsp;</i>Giỏ hàng
-                <th:block th:if="${loginedUser != null}">
+                <th:block th:if="${session.loginedUser != null}">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                          th:text="${cart != null ? cart.count : ''}">
+                          th:text="${session.cart != null ? session.cart.count : ''}">
                     </span>
                 </th:block>
             </a>

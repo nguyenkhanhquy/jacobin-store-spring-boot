@@ -3,6 +3,9 @@ package live.jacobin.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import live.jacobin.entity.Cart;
+import live.jacobin.entity.Role;
+import live.jacobin.service.CartService;
 import live.jacobin.util.CookieUtil;
 import live.jacobin.util.PasswordEncryptorUtil;
 import live.jacobin.util.SessionUtil;
@@ -21,11 +24,13 @@ public class LoginController {
     private final HttpServletResponse response;
 
     private final UserService userService;
+    private final CartService cartService;
 
-    public LoginController(HttpServletRequest request, HttpServletResponse response, UserService userService) {
+    public LoginController(HttpServletRequest request, HttpServletResponse response, UserService userService, CartService cartService) {
         this.request = request;
         this.response = response;
         this.userService = userService;
+        this.cartService = cartService;
     }
 
     @GetMapping("/login")
@@ -63,11 +68,10 @@ public class LoginController {
                 CookieUtil.storeUserCookie(response, user);
             }
 
-//            if (user.getRole().getRoleId() != 1) {
-//                // Lấy thông tin giỏ hàng của người dùng
-//                Cart cart = CartDB.selectCartByUser(SessionUtil.getLoginedUser(session));
-//                session.setAttribute("cart", cart);
-//            }
+            if (user.getRole() != Role.CUSTOMER) {
+                return "redirect:https://www.google.com/";
+            }
+
             // Forward (Chuyển hướng) tới trang home_page
             return "redirect:/home";
         }
