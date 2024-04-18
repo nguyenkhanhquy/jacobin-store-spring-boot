@@ -59,6 +59,13 @@ public class LoginController {
             return "customer/login_page";
         }
         else {
+            // Nếu tài khoản người dùng bị khóa thì thông báo
+            if (user.isLocked()) {
+                message = "Tài khoản của bạn đã bị khóa!";
+                model.addAttribute("message", message);
+                return "customer/login_page";
+            }
+
             // Lưu thông tin người dùng vào Session
             HttpSession session = request.getSession();
             SessionUtil.storeLoginedUser(session, user);
