@@ -31,7 +31,7 @@
                         </th:block>
                         <th:block th:if="${session.loginedUser != null}">
                             <li><a class="dropdown-item" th:href="@{/user-info}">Thông tin tài khoản</a></li>
-                            <li><a class="dropdown-item" th:href="@{/update-password}">Đổi mật khẩu</a></li>
+                            <li><a class="dropdown-item" th:href="@{/change-password}">Đổi mật khẩu</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
                         </th:block>
@@ -45,9 +45,9 @@
             </form>
             <a class="btn btn-success position-relative" th:href="@{/cart}">
                 <i class="fa fa-shopping-cart">&nbsp;</i>Giỏ hàng
-                <th:block th:if="${loginedUser != null}">
+                <th:block th:if="${session.loginedUser != null}">
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                          th:text="${cart != null ? cart.count : ''}">
+                          th:text="${session.cart != null ? session.cart.count : ''}">
                     </span>
                 </th:block>
             </a>

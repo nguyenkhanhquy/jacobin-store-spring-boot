@@ -2,7 +2,6 @@ package live.jacobin.controller;
 
 import live.jacobin.entity.Product;
 import live.jacobin.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,6 @@ public class LoadMoreController {
 
     private final ProductService productService;
 
-    @Autowired
     public LoadMoreController(ProductService productService) {
         this.productService = productService;
     }
