@@ -3,6 +3,7 @@ package live.jacobin.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,7 +38,7 @@ public class User {
     private String dateOfBirth;
 
     @OneToMany(mappedBy = "user")
-    private List<Address> address;
+    private List<Address> address = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;
