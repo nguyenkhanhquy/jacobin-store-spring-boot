@@ -47,7 +47,6 @@ public class HomeController {
         HttpSession session = request.getSession();
         Cart cart = cartService.selectCartByUser(SessionUtil.getLoginedUser(session));
         session.setAttribute("cart", cart);
-        System.out.println(cart);
 
         model.addAttribute("cId", null);
 

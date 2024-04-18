@@ -13,6 +13,7 @@ import java.util.Locale;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Cart {
 
@@ -22,15 +23,11 @@ public class Cart {
     private int cartId;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<LineItem> items;
+    private List<LineItem> items = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
-
-    public Cart() {
-        items = new ArrayList<LineItem>();
-    }
 
     public int getCount() {
         return items.size();
