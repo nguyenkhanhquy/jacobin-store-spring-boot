@@ -33,7 +33,31 @@ public class VerifyOTPController {
 
     @GetMapping(value = {"/verify-otp", "/verify-otp/*"})
     public String verifyOTP() {
+        HttpSession session = request.getSession();
+
+        if(session.getAttribute("action") == "forgot-password") {
+            return "customer/verify_otp_page";
+        }
+
         return "redirect:/home";
+    }
+
+    @PostMapping("/verify-otp/confirm-forgot-password")
+    public String confirmOTPConfirmForgotPassword(@RequestParam String otp, Model model) {
+        HttpSession session = request.getSession();
+        String otpSend = (String) session.getAttribute("otpSend");
+
+        String message;
+        if (otp.equals(otpSend)) {
+            session.removeAttribute("otpSend");
+            return "redirect:/forgot-password/create-new-password";
+        } else {
+            message = "Mã OTP không hợp lệ!";
+        }
+
+        model.addAttribute("message", message);
+
+        return "customer/verify_otp_page";
     }
 
     @PostMapping("/verify-otp/confirm")
@@ -53,9 +77,6 @@ public class VerifyOTPController {
             cart.setUser(user);
             cartService.saveCart(cart);
 
-            session.removeAttribute("user");
-            session.removeAttribute("otpSend");
-
             // Gửi email đến email chào mừng email của user
             String to = user.getEmail();
             String from = "shop.javamail@gmail.com";
@@ -71,6 +92,9 @@ public class VerifyOTPController {
 
             message = "Đăng ký thành công!";
             model.addAttribute("message", message);
+
+            session.removeAttribute("user");
+            session.removeAttribute("otpSend");
 
             return "customer/success_page";
         } else {
@@ -96,7 +120,6 @@ public class VerifyOTPController {
         String otpString = String.valueOf(otp);
         session.setAttribute("otpSend", otpString);
 
-        System.out.println("OTP sent: " + otpString);
         // Gửi email đến email của user
         String to = user.getEmail();
         String from = "shop.javamail@gmail.com";
