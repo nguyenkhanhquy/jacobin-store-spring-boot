@@ -54,13 +54,13 @@ public class RegisterController {
 
         String message;
         if (userService.checkEmailExists(user.getEmail())) {
-            message = "Địa chỉ Email đã tồn tại. " + "Vui lòng điền một địa chỉ Email khác.";
+            message = "Địa chỉ Email đã tồn tại. Vui lòng điền một địa chỉ Email khác.";
         } else if (userService.checkPhoneExists(user.getPhone())) {
-            message = "Số điện thoại đã tồn tại. " + "Vui lòng điền số điện thoại khác.";
+            message = "Số điện thoại đã tồn tại. Vui lòng điền số điện thoại khác.";
         } else if (userService.checkUserNameExists(user.getUserName())) {
-            message = "Tên đăng nhập đã tồn tại. " + "Vui lòng điền tên đăng nhập khác.";
+            message = "Tên đăng nhập đã tồn tại. Vui lòng điền tên đăng nhập khác.";
         } else if (!user.getPassword().equals(passwordAgain)) {
-            message = "Mật khẩu nhập lại không khớp. " + "Vui lòng nhập lại.";
+            message = "Mật khẩu nhập lại không khớp. Vui lòng nhập lại.";
         } else {
             password = PasswordEncryptorUtil.toSHA1(password);
             user.setPassword(password);

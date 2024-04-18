@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    Product save(Product product);
+    Product saveProduct(Product product);
 
-    void delete(Product product);
+    void deleteProduct(Product product);
 
     Product selectProductById(int productId);
 
