@@ -63,8 +63,8 @@
             </div>
             <!-- End Slider -->
 
-            <div th:if="${ListP.isEmpty()}" th:text="'Không tìm thấy sản phẩm nào có tên ứng với: ' + ${pName}">
-                <br>
+            <div th:if="${ListP.isEmpty()}" style="text-align: center; font-size: 24px;">
+                <span th:text="'Không tìm thấy sản phẩm nào có tên ứng với: ' + ${pName}"></span>
             </div>
             <div th:unless="${ListP.isEmpty()}">
                 <div id="content" class="row">

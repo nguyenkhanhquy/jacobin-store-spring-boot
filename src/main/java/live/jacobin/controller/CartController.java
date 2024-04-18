@@ -10,7 +10,6 @@ import live.jacobin.service.LineItemService;
 import live.jacobin.service.ProductService;
 import live.jacobin.util.SessionUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +31,7 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String showCartPage(Model model) {
+    public String showCartPage() {
         HttpSession session = request.getSession();
 
         if (SessionUtil.getLoginedUser(session) == null) {
@@ -45,8 +44,7 @@ public class CartController {
     @PostMapping("/cart")
     public String requestUpdateCart(@RequestParam String action,
                             @RequestParam int productId,
-                            @RequestParam(name = "quantity",required = false) String quantityString,
-                            Model model) {
+                            @RequestParam(name = "quantity",required = false) String quantityString) {
         HttpSession session = request.getSession();
 
         if (SessionUtil.getLoginedUser(session) == null) {
@@ -55,7 +53,6 @@ public class CartController {
 
         // Lấy thông tin giỏ hàng của khách hàng từ session
         Cart cart = cartService.selectCartByUser(SessionUtil.getLoginedUser(session));
-        //session.setAttribute("cart", cart);
 
         int quantity;
         if (action.equals("add")) {
@@ -94,7 +91,7 @@ public class CartController {
 
         session.setAttribute("cart", cart);
 
-        return "customer/cart_page";
+        return "redirect:/cart";
     }
 
 }
