@@ -24,13 +24,11 @@ public class LoginController {
     private final HttpServletResponse response;
 
     private final UserService userService;
-    private final CartService cartService;
 
-    public LoginController(HttpServletRequest request, HttpServletResponse response, UserService userService, CartService cartService) {
+    public LoginController(HttpServletRequest request, HttpServletResponse response, UserService userService) {
         this.request = request;
         this.response = response;
         this.userService = userService;
-        this.cartService = cartService;
     }
 
     @GetMapping("/login")
@@ -76,7 +74,7 @@ public class LoginController {
             }
 
             if (user.getRole() != Role.CUSTOMER) {
-                return "redirect:https://www.google.com/";
+                return "redirect:/dashboard";
             }
 
             // Forward (Chuyển hướng) tới trang home_page
