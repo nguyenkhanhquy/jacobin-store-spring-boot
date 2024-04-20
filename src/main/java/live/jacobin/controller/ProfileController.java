@@ -38,7 +38,7 @@ public class ProfileController {
     public String updateProfile(@RequestParam String firstName,
                                 @RequestParam String lastName,
                                 @RequestParam String dateOfBirth,
-                                @RequestParam String email,
+                                @RequestParam String address,
                                 @RequestParam String phone,
                                 Model model) {
 
@@ -46,15 +46,13 @@ public class ProfileController {
         User userS = SessionUtil.getLoginedUser(session);
 
         String message;
-        if (!email.equals(userS.getEmail()) && userService.checkEmailExists(email)) {
-            message = "Địa chỉ Email đã tồn tại. " + "Vui lòng điền một địa chỉ Email khác.";
-        } else if (!phone.equals(userS.getPhone()) && userService.checkPhoneExists(phone)) {
+        if (!phone.equals(userS.getPhone()) && userService.checkPhoneExists(phone)) {
             message = "Số điện thoại đã tồn tại. " + "Vui lòng điền số điện thoại khác.";
         } else {
             userS.setFirstName(firstName);
             userS.setLastName(lastName);
             userS.setDateOfBirth(dateOfBirth);
-            userS.setEmail(email);
+            userS.setAddress(address);
             userS.setPhone(phone);
             userService.saveUser(userS);
 
@@ -68,7 +66,7 @@ public class ProfileController {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setDateOfBirth(dateOfBirth);
-        user.setEmail(userS.getEmail());
+        user.setAddress(address);
         user.setPhone(userS.getPhone());
         user.setRole(userS.getRole());
 

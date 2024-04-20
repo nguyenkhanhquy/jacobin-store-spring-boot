@@ -34,6 +34,7 @@ public class RegisterController {
     public String requestRegister(@RequestParam String firstName,
                                   @RequestParam String lastName,
                                   @RequestParam String dateOfBirth,
+                                  @RequestParam String address,
                                   @RequestParam String email,
                                   @RequestParam String phone,
                                   @RequestParam String userName,
@@ -46,10 +47,10 @@ public class RegisterController {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setDateOfBirth(dateOfBirth);
+        user.setAddress(address);
         user.setEmail(email);
         user.setPhone(phone);
         user.setUserName(userName);
-        user.setPassword(password);
         user.setRole(Role.CUSTOMER);
 
         String message;
@@ -59,11 +60,10 @@ public class RegisterController {
             message = "Số điện thoại đã tồn tại. Vui lòng điền số điện thoại khác.";
         } else if (userService.checkUserNameExists(user.getUserName())) {
             message = "Tên đăng nhập đã tồn tại. Vui lòng điền tên đăng nhập khác.";
-        } else if (!user.getPassword().equals(passwordAgain)) {
+        } else if (!password.equals(passwordAgain)) {
             message = "Mật khẩu nhập lại không khớp. Vui lòng nhập lại.";
         } else {
-            password = PasswordEncryptorUtil.toSHA1(password);
-            user.setPassword(password);
+            user.setPassword(PasswordEncryptorUtil.toSHA1(password));
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

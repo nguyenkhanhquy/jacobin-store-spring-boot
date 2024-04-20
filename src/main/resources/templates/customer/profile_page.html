@@ -52,10 +52,10 @@
                     </div>
 
                     <div class="col-sm-6">
-<!--                        <div class="form-floating mb-4">-->
-<!--                            <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" value="${user.address}" required disabled>-->
-<!--                            <label for="diaChiKhachHang">Địa chỉ<span class="red">*</span></label>-->
-<!--                        </div>-->
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${user != null} ? ${user.address} : ''" required disabled>
+                            <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>
+                        </div>
 
                         <div class="form-floating mb-4">
                             <input type="email" class="form-control" id="diaChiEmail" placeholder="Email" name="email" th:value="${user != null} ? ${user.email} : ''" required disabled>
@@ -84,7 +84,7 @@
             document.getElementById('ten').removeAttribute('disabled');
             document.getElementById('ho').removeAttribute('disabled');
             document.getElementById('ngaySinh').removeAttribute('disabled');
-            // document.getElementById('diaChiKhachHang').removeAttribute('disabled');
+            document.getElementById('diaChiKhachHang').removeAttribute('disabled');
             // document.getElementById('diaChiEmail').removeAttribute('disabled');
             document.getElementById('dienThoai').removeAttribute('disabled');
 
