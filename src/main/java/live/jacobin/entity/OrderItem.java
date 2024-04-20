@@ -19,9 +19,9 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
 
-    @OneToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+//    @OneToOne
+//    @JoinColumn(name = "product_id")
+//    private Product product;
 
     private String nameProduct;
 

@@ -94,4 +94,15 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @GetMapping("/checkout")
+    public String showCheckoutsPage() {
+        HttpSession session = request.getSession();
+
+        if (SessionUtil.getLoginedUser(session) == null) {
+            return "redirect:/login";
+        }
+
+        return "customer/checkout_page";
+    }
+
 }

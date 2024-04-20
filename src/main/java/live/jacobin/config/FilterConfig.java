@@ -27,6 +27,7 @@ public class FilterConfig {
         registrationBean.addUrlPatterns("/search");
         registrationBean.addUrlPatterns("/detail-product");
         registrationBean.addUrlPatterns("/cart");
+        registrationBean.addUrlPatterns("/checkout");
         return registrationBean;
     }
 
