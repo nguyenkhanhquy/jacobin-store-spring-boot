@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 @Entity
@@ -32,6 +35,9 @@ public class Product {
     private String description;
 
     private String size;
+
+    @ElementCollection
+    private List<String> sizes = new ArrayList<>(Arrays.asList("S", "M", "L", "XL", "XXL", "XXXL"));
 
     @ManyToOne
     @JoinColumn(name = "category_id")

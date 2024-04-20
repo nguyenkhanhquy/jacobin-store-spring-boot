@@ -31,35 +31,15 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-
-                    <!-- List Card -->
-                    <div th:replace="~{includes/admin/list_card}"></div>
-                    <!-- End List Card -->
-
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Quản lý danh mục</li>
+                        </ol>
+                        <a th:href="@{/dashboard/manager-category/add-category}" class="btn btn-outline-success rounded">
+                            <i class="fa-solid fa-circle-plus fa-fw"></i><strong>Thêm danh mục mới</strong>
+                        </a>
                     </div>
-
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -68,34 +48,32 @@
                         <div class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
-                                    <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Tên</th>
-                                        <th>Ảnh</th>
-                                        <th>Danh mục</th>
-                                        <th>Size</th>
-                                        <th>Giá</th>
-                                    </tr>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên</th>
+                                    <th class="action-size">Hành động</th>
+                                </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Tên</th>
-                                        <th>Ảnh</th>
-                                        <th>Danh mục</th>
-                                        <th>Size</th>
-                                        <th>Giá</th>
-                                    </tr>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên</th>
+                                    <th class="action-size">Hành động</th>
+                                </tr>
                                 </tfoot>
                                 <tbody>
-                                <th:block th:each="p : ${ListP}">
+                                <th:block th:each="c : ${ListC}">
                                     <tr>
-                                        <td th:text="${p.productId}"></td>
-                                        <td th:text="${p.name}"></td>
-                                        <td><img class="card-img-top" th:src="${p.image}" alt="..."></td>
-                                        <td th:text="${p.category.name}"></td>
-                                        <td th:text="${p.size}"></td>
-                                        <td th:text="${p.priceCurrencyFormat}"></td>
+                                        <td th:text="${c.categoryId}"></td>
+                                        <td th:text="${c.name}"></td>
+                                        <td class="action-icons">
+                                            <a th:href="@{'edit-category?editId=' + ${c.categoryId}}" class="icon-edit">
+                                                <i class="fa-solid fa-pen-to-square" style="font-size: 18px;" data-toggle="tooltip" title="Chỉnh sửa"></i>
+                                            </a>
+                                            <a href="#" class="icon-delete" th:onclick="'confirmDeleteCategory(' + ${c.categoryId} + ')'">
+                                                <i class="fa-solid fa-trash" style="font-size: 18px;" data-toggle="tooltip" title="Xoá"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </th:block>
                                 </tbody>
@@ -111,6 +89,15 @@
         </div>
     </div>
 
+    <script>
+        function confirmDeleteCategory(categoryId) {
+            var isConfirmed = confirm("Bạn có chắc chắn muốn xoá danh mục có mã: " + categoryId + " không?");
+            if (isConfirmed) {
+                window.location.href = "manager-category?deleteId=" + categoryId;
+            }
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
@@ -120,8 +107,6 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3/dist/umd/simple-datatables.min.js"></script>
 
     <script th:src="@{/js/scripts.js}"></script>
-    <script th:src="@{/assets/demo/chart-area-demo.js}"></script>
-    <script th:src="@{/assets/demo/chart-bar-demo.js}"></script>
     <script th:src="@{/js/datatables-simple-demo.js}"></script>
 </body>
 </html>

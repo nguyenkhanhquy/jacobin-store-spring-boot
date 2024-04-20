@@ -11230,3 +11230,32 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+/*Custom*/
+
+.action-size {
+  width: 116px;
+}
+
+.action-icons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.icon-edit {
+  font-weight: bold;
+  display: inline-block;
+  outline: none !important;
+  color: #FFC107;
+}
+
+.icon-delete {
+  font-weight: bold;
+  display: inline-block;
+  outline: none !important;
+  color: #F44336;
+}
+
+a {
+  text-decoration: none;
+}

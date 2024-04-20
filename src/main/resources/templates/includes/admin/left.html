@@ -1,0 +1,78 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Bảng Điều Khiển</div>
+                <a class="nav-link" th:href="@{/dashboard}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Quản Lý</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
+                    Danh mục
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseCategory" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Thêm danh mục</a>
+                        <a class="nav-link" th:href="@{/dashboard/manager-category}">Danh sách danh mục</a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
+                    <div class="sb-nav-link-icon"><i class="fa-brands fa-product-hunt"></i></div>
+                    Sản phẩm
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseProducts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Thêm sản phẩm</a>
+                        <a class="nav-link" href="#">Danh sách sản phẩm</a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                    Người dùng
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Nhân viên</a>
+                        <a class="nav-link" href="#">Khách hàng</a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-receipt"></i></div>
+                    Đơn hàng
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Danh sách đơn hàng</a>
+                    </nav>
+                </div>
+
+                <div class="sb-sidenav-menu-heading">Thống Kê</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="false" aria-controls="collapseCharts">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                    Dạng biểu đồ
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseCharts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#"><i class="fas fa-chart-area"></i>&nbsp;Biểu đồ vùng</a>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-chart-bar"></i>&nbsp;Biểu đồ cột</a>
+                    </nav>
+                </div>
+                <a class="nav-link" th:href="@{/dashboard/tables}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Dạng bảng
+                </a>
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Quản lý: Jacboin Manager</div>
+        </div>
+    </nav>
+</div>

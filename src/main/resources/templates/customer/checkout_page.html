@@ -97,10 +97,10 @@
                                 <label for="dienThoai">Số điện thoại <span class="red">*</span></label>
                             </div>
 
-                            <!--                            <div class="form-floating mb-4">-->
-                            <!--                                <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" value="${loginedUser.address}" required>-->
-                            <!--                                <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>-->
-                            <!--                            </div>-->
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${session.loginedUser.address}" required>
+                                <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>
+                            </div>
 
                             <label>
                                 <select name="paymentMethod" class="form-select mb-4" required>
