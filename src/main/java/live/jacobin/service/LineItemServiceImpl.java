@@ -1,6 +1,5 @@
 package live.jacobin.service;
 
-import live.jacobin.entity.Cart;
 import live.jacobin.entity.LineItem;
 import live.jacobin.entity.Product;
 import live.jacobin.repository.LineItemRepository;
@@ -20,8 +19,8 @@ public class LineItemServiceImpl implements LineItemService {
     }
 
     @Override
-    public LineItem saveLineItem(LineItem lineItem) {
-        return lineItemRepository.save(lineItem);
+    public void saveLineItem(LineItem lineItem) {
+        lineItemRepository.save(lineItem);
     }
 
     @Override

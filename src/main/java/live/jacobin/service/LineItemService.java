@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LineItemService {
 
-    LineItem saveLineItem(LineItem lineItem);
+    void saveLineItem(LineItem lineItem);
 
     void deleteLineItem(LineItem lineItem);
 

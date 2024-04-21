@@ -3,7 +3,6 @@ package live.jacobin.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import live.jacobin.entity.User;
-import live.jacobin.repository.UserRepository;
 import live.jacobin.service.UserService;
 import live.jacobin.util.PasswordEncryptorUtil;
 import org.springframework.stereotype.Controller;
