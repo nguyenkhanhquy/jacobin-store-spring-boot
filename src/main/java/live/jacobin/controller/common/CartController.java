@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

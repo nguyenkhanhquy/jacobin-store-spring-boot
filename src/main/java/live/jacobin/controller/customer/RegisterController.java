@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.customer;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -67,7 +67,7 @@ public class RegisterController {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
-            return "customer/verify_otp_page";
+            return "common/verify_otp_page";
         }
 
         model.addAttribute("user", user);

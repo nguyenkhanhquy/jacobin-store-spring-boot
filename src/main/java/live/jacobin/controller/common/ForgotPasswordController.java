@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +25,7 @@ public class ForgotPasswordController {
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordPage() {
-        return "customer/forgot_password_page";
+        return "common/forgot_password_page";
     }
 
     @PostMapping("/forgot-password")
@@ -45,7 +45,7 @@ public class ForgotPasswordController {
         model.addAttribute("email", email);
         model.addAttribute("message", message);
 
-        return "customer/forgot_password_page";
+        return "common/forgot_password_page";
     }
 
     @GetMapping("/forgot-password/create-new-password")
@@ -53,7 +53,7 @@ public class ForgotPasswordController {
         HttpSession session = request.getSession();
 
         if(session.getAttribute("action") == "forgot-password") {
-            return "customer/create_new_password_page";
+            return "common/create_new_password_page";
         }
 
         return "redirect:/home";
@@ -68,7 +68,7 @@ public class ForgotPasswordController {
 
         String message;
         if (!newPassword.equals(newPasswordAgain)) {
-            message = "Mật khẩu nhập lại không khớp. Vui lòng nhập lại.";
+            message = "Mật khẩu nhập lại không khớp.";
         } else {
             message = "Đặt lại mật khẩu mới thành công!";
             newPassword = PasswordEncryptorUtil.toSHA1(newPassword);
@@ -80,12 +80,12 @@ public class ForgotPasswordController {
 
             model.addAttribute("message", message);
 
-            return "customer/success_page";
+            return "common/success_page";
         }
 
         model.addAttribute("message", message);
 
-        return "customer/create_new_password_page";
+        return "common/create_new_password_page";
     }
 
 }

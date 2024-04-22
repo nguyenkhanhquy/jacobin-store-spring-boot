@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.customer;
 
 import live.jacobin.entity.Category;
 import live.jacobin.entity.Product;
@@ -12,37 +12,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class CategoryController {
+public class DetailProductController {
 
     private final CategoryService categoryService;
     private final ProductService productService;
 
-    public CategoryController(CategoryService categoryService, ProductService productService) {
+    public DetailProductController(CategoryService categoryService, ProductService productService) {
         this.categoryService = categoryService;
         this.productService = productService;
     }
 
-    @RequestMapping("/category")
-    public String showCategory(@RequestParam(required = false) String cId, Model model) {
+    @RequestMapping("/detail-product")
+    public String showDetail(@RequestParam(required = false) String pId, Model model) {
         try {
-            int categoryId = Integer.parseInt(cId);
-            // Lấy danh sách Product theo CategoryId từ service
-            List<Product> listP = productService.select10FirstProductByCategoryId(categoryId);
-            // Đặt danh sách vào model để truyền tới view
-            model.addAttribute("ListP", listP);
+            int productId = Integer.parseInt(pId);
 
             // Lấy danh sách Category từ service
             List<Category> listC = categoryService.selectAllCategory();
             // Đặt danh sách vào model để truyền tới view
             model.addAttribute("ListC", listC);
 
-            model.addAttribute("cId", categoryId);
-            model.addAttribute("tag", categoryId);
-        } catch (NumberFormatException nfe) {
+            // Lấy Product theo productId từ service
+            Product product = productService.selectProductById(productId);
+            // Đặt Product vào model để truyền tới view
+            model.addAttribute("product", product);
+        }
+        catch (NumberFormatException ignored) {
             return "redirect:/home";
         }
 
-        return "home_page";
+        return "customer/detail_product_page";
     }
 
 }

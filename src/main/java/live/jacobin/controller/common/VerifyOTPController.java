@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 @Controller
@@ -36,7 +37,7 @@ public class VerifyOTPController {
         HttpSession session = request.getSession();
 
         if(session.getAttribute("action") == "forgot-password") {
-            return "customer/verify_otp_page";
+            return "common/verify_otp_page";
         }
 
         return "redirect:/home";
@@ -57,12 +58,23 @@ public class VerifyOTPController {
 
         model.addAttribute("message", message);
 
-        return "customer/verify_otp_page";
+        return "common/verify_otp_page";
     }
 
     @PostMapping("/verify-otp/confirm")
     public String verifyOTPConfirm(@RequestParam String otp, Model model) throws MessagingException, UnsupportedEncodingException {
         HttpSession session = request.getSession();
+
+        Long otpExpirationTime = (Long) session.getAttribute("otpExpirationTime");
+        if (otpExpirationTime != null) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime > otpExpirationTime) {
+                // Thuộc tính "otpSend" đã hết hạn, loại bỏ nó khỏi session
+                session.removeAttribute("otpSend");
+                session.removeAttribute("otpExpirationTime");
+            }
+        }
+
         String otpSend = (String) session.getAttribute("otpSend");
 
         String message;
@@ -96,14 +108,14 @@ public class VerifyOTPController {
             session.removeAttribute("user");
             session.removeAttribute("otpSend");
 
-            return "customer/success_page";
+            return "common/success_page";
         } else {
             message = "Mã OTP không hợp lệ!";
         }
 
         model.addAttribute("message", message);
 
-        return "customer/verify_otp_page";
+        return "common/verify_otp_page";
     }
 
     @PostMapping("/verify-otp/send-code")
@@ -111,28 +123,31 @@ public class VerifyOTPController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        // Đặt thời gian sống của session là 5 phút (300 giây)
-        session.setMaxInactiveInterval(300);
-
         // Tạo và lưu giá trị OTP vào session
         Random random = new Random();
         int otp = random.nextInt(900000) + 100000;
         String otpString = String.valueOf(otp);
         session.setAttribute("otpSend", otpString);
 
+        long otpExpirationTime = System.currentTimeMillis() + (300 * 1000); // Thời gian hiện tại + 5 phút (300 giây)
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String formattedDate = sdf.format(otpExpirationTime);
+        session.setAttribute("otpExpirationTime", otpExpirationTime);
+
         // Gửi email đến email của user
         String to = user.getEmail();
         String from = "shop.javamail@gmail.com";
         String subject = "Xác minh email";
         String body = "Chào " + user.getFirstName() + ",\n\n"
-                + "Mã OTP của bạn là: " + otpString;
+                + "Mã OTP của bạn là: " + otpString + ".\n\n"
+                + "Mã OTP khả dụng đến: " + formattedDate + ".";
         boolean isBodyHTML = false;
         MailUtilGmail.sendMail(to, from, subject, body, isBodyHTML);
 
         String message = "Đã gửi mã OTP tới email của bạn!";
         model.addAttribute("message", message);
 
-        return "customer/verify_otp_page";
+        return "common/verify_otp_page";
     }
 
 }

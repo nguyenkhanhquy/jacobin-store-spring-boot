@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.customer;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -50,7 +50,7 @@ public class HomeController {
 
         model.addAttribute("cId", null);
 
-        return "home_page";
+        return "customer/home_page";
     }
 
 }

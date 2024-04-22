@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class LogoutController {
         String message = "Đăng xuất thành công!";
         model.addAttribute("message", message);
 
-        return "customer/success_page";
+        return "common/success_page";
     }
 
 }

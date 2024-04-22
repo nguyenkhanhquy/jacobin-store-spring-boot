@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -31,7 +31,7 @@ public class ProfileController {
 
         model.addAttribute("user", user);
 
-        return "customer/profile_page";
+        return "common/profile_page";
     }
 
     @PostMapping("/profile")
@@ -59,7 +59,7 @@ public class ProfileController {
             message = "Cập nhật thành công!";
             model.addAttribute("message", message);
 
-            return "customer/success_page";
+            return "common/success_page";
         }
 
         User user = new User();
@@ -73,7 +73,7 @@ public class ProfileController {
         model.addAttribute("user", user);
         model.addAttribute("message", message);
 
-        return "customer/profile_page";
+        return "common/profile_page";
     }
 
 }

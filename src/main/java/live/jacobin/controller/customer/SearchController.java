@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.customer;
 
 import live.jacobin.entity.Category;
 import live.jacobin.entity.Product;
@@ -36,6 +36,6 @@ public class SearchController {
         // Đặt danh sách vào model để truyền tới view
         model.addAttribute("ListP", listP);
 
-        return "home_page";
+        return "customer/home_page";
     }
 }

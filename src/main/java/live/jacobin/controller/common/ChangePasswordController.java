@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,7 +26,7 @@ public class ChangePasswordController {
 
     @GetMapping("/change-password")
     public String showChangePasswordPage() {
-        return "customer/change_password_page";
+        return "common/change_password_page";
     }
 
     @PostMapping("/change-password")
@@ -49,12 +49,12 @@ public class ChangePasswordController {
             user.setPassword(newPassword);
             userService.saveUser(user);
             model.addAttribute("message", message);
-            return "customer/success_page";
+            return "common/success_page";
         }
 
         model.addAttribute("message", message);
 
-        return "customer/change_password_page";
+        return "common/change_password_page";
     }
 
 }

@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.admin;
 
 import live.jacobin.entity.Product;
 import live.jacobin.service.ProductService;

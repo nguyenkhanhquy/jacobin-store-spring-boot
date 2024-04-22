@@ -1,4 +1,4 @@
-package live.jacobin.controller;
+package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "customer/login_page";
+        return "common/login_page";
     }
 
     @PostMapping("/login")
@@ -52,14 +52,14 @@ public class LoginController {
             model.addAttribute("message", message);
 
             // Forward (Chuyển hướng) tới trang login_page
-            return "customer/login_page";
+            return "common/login_page";
         }
         else {
             // Nếu tài khoản người dùng bị khóa thì thông báo
             if (user.isLocked()) {
                 message = "Tài khoản của bạn đã bị khóa!";
                 model.addAttribute("message", message);
-                return "customer/login_page";
+                return "common/login_page";
             }
 
             // Lưu thông tin người dùng vào Session
