@@ -26,7 +26,9 @@ public class AdminFilter implements Filter {
         User userInSession = SessionUtil.getLoginedUser(session);
 
         // Kiểm tra nếu là admin thì cho qua, nếu không thì chuyển hướng sang home
-        if (userInSession != null && (userInSession.getRole() == Role.MANAGER || userInSession.getRole() == Role.STAFF)) {
+        if (userInSession == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+        } else if (userInSession.getRole() == Role.MANAGER || userInSession.getRole() == Role.STAFF) {
             chain.doFilter(request, response);
         } else {
             resp.sendRedirect(req.getContextPath() + "/home");
