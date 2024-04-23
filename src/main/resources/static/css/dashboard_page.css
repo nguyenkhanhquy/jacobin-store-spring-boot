@@ -11247,6 +11247,10 @@ body {
   display: inline-block;
   outline: none !important;
   color: #FFC107;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 20px;
 }
 
 .icon-delete {
@@ -11254,6 +11258,10 @@ body {
   display: inline-block;
   outline: none !important;
   color: #F44336;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 20px;
 }
 
 a {
