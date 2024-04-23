@@ -2,6 +2,7 @@ package live.jacobin.controller.admin;
 
 import live.jacobin.entity.Category;
 import live.jacobin.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class ManagerCategoryController {
 
     private final CategoryService categoryService;
 
+    @Autowired
     public ManagerCategoryController(final CategoryService categoryService) {
         this.categoryService = categoryService;
     }
@@ -62,6 +64,49 @@ public class ManagerCategoryController {
         return "redirect:/dashboard/manager-category/add-category";
     }
 
+    @GetMapping("/edit-category")
+    public String showEditCategoryPage(@RequestParam(required = false) String categoryId,
+                                       Model model) {
+        int cId;
+        try {
+            cId = Integer.parseInt(categoryId);
+        } catch (NumberFormatException e) {
+            return "redirect:/dashboard/manager-category";
+        }
+
+        Category category = categoryService.selectCategoryById(cId);
+        if (category == null) {
+            return "redirect:/dashboard/manager-category";
+        }
+
+        model.addAttribute("category", category);
+
+        return "admin/edit_category_page";
+    }
+
+    @PostMapping("/edit-category")
+    public String editCategory(@RequestParam int categoryId,
+                                 @RequestParam String name,
+                                 RedirectAttributes redirectAttributes) {
+        String message;
+        String messageError;
+        Category category = categoryService.selectCategoryById(categoryId);
+        if (!category.getName().equals(name) && categoryService.checkNameExists(name)) {
+            messageError = "Đã tồn tại một danh mục có tên [" + name + "]";
+            redirectAttributes.addFlashAttribute("messageError", messageError);
+            redirectAttributes.addFlashAttribute("name", name);
+
+            return "redirect:/dashboard/manager-category/edit-category?categoryId=" + categoryId;
+        }
+
+        category.setName(name);
+        categoryService.saveCategory(category);
+        message = "Chỉnh sửa thành công danh mục có mã [" + categoryId + "]";
+        redirectAttributes.addFlashAttribute("message", message);
+
+        return "redirect:/dashboard/manager-category";
+    }
+
     @PostMapping("/delete")
     public String deleteCategory(@RequestParam int categoryId,
                                  @RequestParam String name,
@@ -75,7 +120,7 @@ public class ManagerCategoryController {
             redirectAttributes.addFlashAttribute("message", message);
         }
         catch (Exception e) {
-            messageError = "Trong danh [" + categoryId + " - " + name + "] vẫn còn sản phẩm, hãy xoá sản phẩm trước!";
+            messageError = "Trong danh mục [" + categoryId + " - " + name + "] vẫn còn sản phẩm, hãy xoá sản phẩm thuộc danh mục này trước!";
             redirectAttributes.addFlashAttribute("messageError", messageError);
         }
 

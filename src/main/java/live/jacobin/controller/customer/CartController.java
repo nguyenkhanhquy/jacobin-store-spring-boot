@@ -1,4 +1,4 @@
-package live.jacobin.controller.common;
+package live.jacobin.controller.customer;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -9,6 +9,7 @@ import live.jacobin.service.CartService;
 import live.jacobin.service.LineItemService;
 import live.jacobin.service.ProductService;
 import live.jacobin.util.SessionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class CartController {
     private final ProductService productService;
     private final LineItemService lineItemService;
 
+    @Autowired
     public CartController(final HttpServletRequest request, CartService cartService, ProductService productService, LineItemService lineItemService) {
         this.request = request;
         this.cartService = cartService;
@@ -43,8 +45,8 @@ public class CartController {
 
     @PostMapping("/cart")
     public String requestUpdateCart(@RequestParam String action,
-                            @RequestParam int productId,
-                            @RequestParam(name = "quantity",required = false) String quantityString) {
+                                    @RequestParam int productId,
+                                    @RequestParam(name = "quantity",required = false) String quantityString) {
         HttpSession session = request.getSession();
 
         if (SessionUtil.getLoginedUser(session) == null) {

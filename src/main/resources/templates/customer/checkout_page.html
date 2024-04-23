@@ -62,7 +62,7 @@
                                     <th:block th:each="item: ${session.cart.items}">
                                         <tr>
                                             <td class="align-middle">
-                                                <strong><a th:href="@{'detail-product?pId=' + ${item.product.productId}}" class="text-dark d-inline-block" th:text="${item.product.name}"></a></strong>
+                                                <strong><a th:href="@{'detail-product?productId=' + ${item.product.productId}}" class="text-dark d-inline-block" th:text="${item.product.name}"></a></strong>
                                             </td>
                                             <td class="align-middle">
                                                 <img th:src="${item.product.image}" alt="..." width="70" class="img-fluid rounded shadow-sm">

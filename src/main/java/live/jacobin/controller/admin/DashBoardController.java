@@ -2,6 +2,7 @@ package live.jacobin.controller.admin;
 
 import live.jacobin.entity.Product;
 import live.jacobin.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ public class DashBoardController {
 
     private final ProductService productService;
 
+    @Autowired
     public DashBoardController(ProductService productService) {
         this.productService = productService;
     }

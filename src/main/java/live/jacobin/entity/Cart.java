@@ -30,7 +30,11 @@ public class Cart {
     private User user;
 
     public int getCount() {
-        return items.size();
+        int totalCount = 0;
+        for (LineItem item : items) {
+            totalCount += item.getQuantity();
+        }
+        return totalCount;
     }
 
     public double getTotal() {

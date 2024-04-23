@@ -30,29 +30,33 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Thêm danh mục</h1>
+                    <h1 class="mt-4">Chỉnh sửa danh mục</h1>
                     <div class="d-flex justify-content-between align-items-center">
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a th:href="@{/dashboard/manager-category}">Quản lý danh mục</a></li>
-                            <li class="breadcrumb-item active">Thêm danh mục</li>
+                            <li class="breadcrumb-item active">Chỉnh sửa danh mục</li>
                         </ol>
                     </div>
                     <div class="container">
                         <div class="table-wrapper">
                             <strong class="text-success" th:text="${message}"></strong>
                             <strong class="text-danger" th:text="${messageError}"></strong>
-                            <form th:action="@{/dashboard/manager-category/add-category}" method="POST">
+                            <form th:action="@{/dashboard/manager-category/edit-category}" method="POST">
                                 <div class="row mt-2">
                                     <div class="col-sm-6">
                                         <div class="form-group mb-4">
                                             <div class="form-floating mb-4">
-                                                <input type="text" class="form-control" id="ten" placeholder="Tên danh mục" name="name" th:value="${name}" required>
+                                                <input type="text" class="form-control" id="id" placeholder="Mã danh mục" name="categoryId" th:value="${category.categoryId}" readonly>
+                                                <label for="id">Mã danh mục <span class="red">*</span></label>
+                                            </div>
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="ten" placeholder="Tên danh mục" name="name" th:value="${category.name}" required>
                                                 <label for="ten">Tên danh mục <span class="red">*</span></label>
                                             </div>
-                                            <hr/>
-                                            <button class="w-100 btn btn-lg btn-success mb-2" type="submit">Xác nhận</button>
                                         </div>
+                                        <hr/>
+                                        <button class="w-100 btn btn-lg btn-success mb-2" type="submit">Xác nhận</button>
                                     </div>
                                 </div>
                             </form>
@@ -66,15 +70,6 @@
             <!-- End footer -->
         </div>
     </div>
-
-    <script>
-        function confirmDeleteCategory(categoryId) {
-            const isConfirmed = confirm("Bạn có chắc chắn muốn xoá danh mục có mã: " + categoryId + " không?");
-            if (isConfirmed) {
-                window.location.href = "manager-category?deleteId=" + categoryId;
-            }
-        }
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

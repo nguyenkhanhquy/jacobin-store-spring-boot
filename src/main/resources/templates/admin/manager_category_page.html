@@ -43,9 +43,11 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            <span class="m-lg-4" >Quản Lý Sản Phẩm</span>
-                            <strong class="text-success" th:text="${message}"></strong>
-                            <strong class="text-danger" th:text="${messageError}"></strong>
+                            Quản Lý Sản Phẩm
+                            <span class="m-lg-4">
+                                <strong class="text-success" th:text="${message}"></strong>
+                                <strong class="text-danger" th:text="${messageError}"></strong>
+                            </span>
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
@@ -69,7 +71,7 @@
                                         <td th:text="${c.categoryId}"></td>
                                         <td th:text="${c.name}"></td>
                                         <td class="action-icons">
-                                            <a th:href="@{'edit-category?editId=' + ${c.categoryId}}" class="icon-edit">
+                                            <a th:href="@{'/dashboard/manager-category/edit-category?categoryId=' + ${c.categoryId}}" class="icon-edit">
                                                 <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" title="Chỉnh sửa"></i>
                                             </a>
 
@@ -112,6 +114,6 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3/dist/umd/simple-datatables.min.js"></script>
 
     <script th:src="@{/js/sidebarToggle.js}"></script>
-    <script th:src="@{/js/datatables-simple-demo.js}"></script>
+    <script th:src="@{/js/datatablesSimple.js}"></script>
 </body>
 </html>

@@ -71,16 +71,16 @@
                         <!-- Products -->
                         <div th:each="p : ${ListP}" class="product col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
-                                <a th:href="@{'/detail-product?pId=' + ${p.productId}}"><img class="card-img-top" th:src="${p.image}" alt="..."></a>
+                                <a th:href="@{'/detail-product?productId=' + ${p.productId}}"><img class="card-img-top" th:src="${p.image}" alt="..."></a>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a th:href="@{'/detail-product?pId=' + ${p.productId}}" th:text="${p.name}"></a> - <span th:text="${p.size}"></span>
+                                        <a th:href="@{'/detail-product?productId=' + ${p.productId}}" th:text="${p.name}"></a> - <span th:text="${p.size}"></span>
                                     </h4>
                                     <h5 th:text="${p.priceCurrencyFormat}"></h5>
                                     <p class="card-text" th:text="${p.title}"></p>
                                 </div>
                                 <div class="card-footer">
-                                    <a th:href="@{'/detail-product?pId=' + ${p.productId}}" class="btn btn-outline-dark">Chi tiết</a>
+                                    <a th:href="@{'/detail-product?productId=' + ${p.productId}}" class="btn btn-outline-dark">Chi tiết</a>
                                     <form th:action="@{/cart}" th:method="POST" style="display: inline-block;">
                                         <input type="hidden" name="action" value="add">
                                         <input type="hidden" name="productId" th:value="${p.productId}">

@@ -32,6 +32,10 @@ public class ProfileController {
         HttpSession session = request.getSession();
         User user = SessionUtil.getLoginedUser(session);
 
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         UserDTO userDTO = new UserDTO(user);
 
         model.addAttribute("user", userDTO);
