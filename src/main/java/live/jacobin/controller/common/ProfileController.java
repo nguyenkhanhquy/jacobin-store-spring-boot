@@ -2,9 +2,11 @@ package live.jacobin.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import live.jacobin.dto.UserDTO;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
 import live.jacobin.util.SessionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ public class ProfileController {
 
     private final UserService userService;
 
+    @Autowired
     public ProfileController(HttpServletRequest request, UserService userService) {
         this.request = request;
         this.userService = userService;
@@ -29,7 +32,9 @@ public class ProfileController {
         HttpSession session = request.getSession();
         User user = SessionUtil.getLoginedUser(session);
 
-        model.addAttribute("user", user);
+        UserDTO userDTO = new UserDTO(user);
+
+        model.addAttribute("user", userDTO);
 
         return "common/profile_page";
     }
@@ -43,37 +48,35 @@ public class ProfileController {
                                 Model model) {
 
         HttpSession session = request.getSession();
-        User userS = SessionUtil.getLoginedUser(session);
+        User user = SessionUtil.getLoginedUser(session);
 
         String message;
-        if (!phone.equals(userS.getPhone()) && userService.checkPhoneExists(phone)) {
+        if (!phone.equals(user.getPhone()) && userService.checkPhoneExists(phone)) {
             message = "Số điện thoại đã tồn tại. " + "Vui lòng điền số điện thoại khác.";
-        } else {
-            userS.setFirstName(firstName);
-            userS.setLastName(lastName);
-            userS.setDateOfBirth(dateOfBirth);
-            userS.setAddress(address);
-            userS.setPhone(phone);
-            userService.saveUser(userS);
 
-            message = "Cập nhật thành công!";
+            UserDTO userDTO = new UserDTO(user);
+            userDTO.setFirstName(firstName);
+            userDTO.setLastName(lastName);
+            userDTO.setDateOfBirth(dateOfBirth);
+            userDTO.setAddress(address);
+
+            model.addAttribute("user", userDTO);
             model.addAttribute("message", message);
 
-            return "common/success_page";
+            return "common/profile_page";
         }
 
-        User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setDateOfBirth(dateOfBirth);
         user.setAddress(address);
-        user.setPhone(userS.getPhone());
-        user.setRole(userS.getRole());
+        user.setPhone(phone);
+        userService.saveUser(user);
 
-        model.addAttribute("user", user);
+        message = "Cập nhật thành công!";
         model.addAttribute("message", message);
 
-        return "common/profile_page";
+        return "common/success_page";
     }
 
 }

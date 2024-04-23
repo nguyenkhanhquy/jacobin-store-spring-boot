@@ -2,6 +2,7 @@ package live.jacobin.controller.customer;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import live.jacobin.dto.UserDTO;
 import live.jacobin.entity.Role;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
@@ -41,16 +42,15 @@ public class RegisterController {
                                   @RequestParam String passwordAgain,
                                   Model model) {
 
-        User user = new User();
-
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setDateOfBirth(dateOfBirth);
-        user.setAddress(address);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setUserName(userName);
-        user.setRole(Role.CUSTOMER);
+        User user = User.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .dateOfBirth(dateOfBirth)
+                .address(address)
+                .email(email)
+                .phone(phone)
+                .userName(userName)
+                .build();
 
         String message;
         if (userService.checkEmailExists(user.getEmail())) {
@@ -63,6 +63,7 @@ public class RegisterController {
             message = "Mật khẩu nhập lại không khớp. Vui lòng nhập lại.";
         } else {
             user.setPassword(PasswordEncryptorUtil.toSHA1(password));
+            user.setRole(Role.CUSTOMER);
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
@@ -70,7 +71,9 @@ public class RegisterController {
             return "common/verify_otp_page";
         }
 
-        model.addAttribute("user", user);
+        UserDTO userDTO = new UserDTO(user);
+
+        model.addAttribute("user", userDTO);
         model.addAttribute("message", message);
 
         return "customer/register_page";

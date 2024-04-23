@@ -36,10 +36,10 @@ public class VerifyOTPController {
     public String verifyOTP() {
         HttpSession session = request.getSession();
 
-        if(session.getAttribute("action") == "forgot-password") {
+        if(session.getAttribute("action").equals("forgot-password")) {
             return "common/verify_otp_page";
         }
-
+        
         return "redirect:/home";
     }
 

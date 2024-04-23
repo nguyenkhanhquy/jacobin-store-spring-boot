@@ -31,7 +31,7 @@
             </th:block>
 
             <th:block th:if="${session.loginedUser != null}">
-                <h5><span class="badge text-bg-primary" th:text="'Quyền truy cập: ' + ${user.role}"></span></h5>
+                <h5><span class="badge text-bg-primary" th:text="'Tên đăng nhập: ' + ${user.userName}"></span></h5>
                 <div class="text-center"><p class="red"><i th:text="${message}"></i></p></div>
                 <div class="row">
                     <div class="col-sm-6">
