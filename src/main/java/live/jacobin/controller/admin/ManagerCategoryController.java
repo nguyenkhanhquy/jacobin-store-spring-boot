@@ -31,12 +31,12 @@ public class ManagerCategoryController {
         // Đặt danh sách vào model để truyền tới view
         model.addAttribute("ListC", listC);
 
-        return "admin/manager_category_page";
+        return "admin/category/manager_category_page";
     }
 
     @GetMapping("/add-category")
     public String showAddCategoryPage() {
-        return "admin/add_category_page";
+        return "admin/category/add_category_page";
     }
 
     @PostMapping("/add-category")
@@ -81,7 +81,7 @@ public class ManagerCategoryController {
 
         model.addAttribute("category", category);
 
-        return "admin/edit_category_page";
+        return "admin/category/edit_category_page";
     }
 
     @PostMapping("/edit-category")

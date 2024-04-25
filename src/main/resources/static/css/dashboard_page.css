@@ -11233,13 +11233,12 @@ body {
 
 /*Custom*/
 
-.action-size {
-  width: 116px;
+td {
+  text-align: center;
 }
 
-.action-icons {
-  display: flex;
-  justify-content: space-evenly;
+.action-size {
+  width: 116px;
 }
 
 .icon-edit {
@@ -11251,6 +11250,7 @@ body {
   background: none;
   padding: 0;
   font-size: 20px;
+  margin: 0 5px;
 }
 
 .icon-delete {
@@ -11262,6 +11262,7 @@ body {
   background: none;
   padding: 0;
   font-size: 20px;
+  margin: 0 5px;
 }
 
 a {
@@ -11270,4 +11271,10 @@ a {
 
 .red {
   color: red;
+}
+
+.img-product {
+  max-width: 100%;
+  max-height: 80px;
+  border: 1px solid #ddd;
 }
