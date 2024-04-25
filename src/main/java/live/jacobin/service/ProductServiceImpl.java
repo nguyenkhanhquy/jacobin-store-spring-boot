@@ -45,11 +45,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> selectProductByIdDesc() {
-        return productRepository.findAllByOrderByProductIdDesc();
-    }
-
-    @Override
     public List<Product> select20FirstProduct() {
         return productRepository.findFirst20ByOrderByProductId();
     }

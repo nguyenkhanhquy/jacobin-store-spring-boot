@@ -19,7 +19,7 @@
     <main class="form-register w-100 m-auto">
         <form class="text-center" th:action="@{/register}" method="POST">
             <a th:href="@{/home}">
-                <img class="logo" th:src="@{/img/logo/logo.png}" alt="logo" width="280">
+                <img class="logo" th:src="@{/img/logo/logo(black).png}" alt="logo" width="280">
             </a>
 
             <h1 class="h3 mb-3 fw-normal">ĐĂNG KÝ TÀI KHOẢN</h1>
@@ -46,10 +46,10 @@
                             <label for="ngaySinh">Ngày sinh <span class="red">*</span></label>
                         </div>
 
-<!--                        <div class="form-floating mb-4">-->
-<!--                            <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${user.address}" required>-->
-<!--                            <label for="diaChiKhachHang">Địa chỉ<span class="red">*</span></label>-->
-<!--                        </div>-->
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${user != null} ?  ${user.address} : ''" required>
+                            <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>
+                        </div>
 
                         <div class="form-floating mb-4">
                             <input type="email" class="form-control" id="diaChiEmail" placeholder="Email" name="email" th:value="${user != null} ? ${user.email} : ''" required>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <p><strong>Tài khoản</strong></p>
+                        <p><strong>Thông tin tài khoản</strong></p>
 
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" id="tenDangNhap" placeholder="Tên đăng nhập" name="userName" th:value="${user != null} ? ${user.userName} : ''" required>

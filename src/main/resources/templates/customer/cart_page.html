@@ -17,7 +17,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <div th:replace="~{includes/header}"></div>
+    <div th:replace="~{includes/customer/header}"></div>
     <!-- End Navbar -->
 
     <!-- Page content -->
@@ -61,18 +61,8 @@
                                     <tbody>
                                     <th:block th:each="item: ${session.cart.items}">
                                         <tr>
-<!--                                            <th scope="row">-->
-<!--                                                <div class="p-2">-->
-<!--                                                    <div class="ml-3 d-inline-block align-middle">-->
-<!--                                                        <h5 class="mb-0">-->
-<!--                                                            <a href="#" class="text-dark d-inline-block" th:text="${item.product.name}"></a>-->
-<!--                                                        </h5>-->
-<!--                                                        <span class="text-muted font-weight-normal font-italic"></span>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </th>-->
                                             <td class="align-middle">
-                                                <strong><a th:href="@{'detail-product?pId=' + ${item.product.productId}}" class="text-dark d-inline-block" th:text="${item.product.name}"></a></strong>
+                                                <strong><a th:href="@{'detail-product?productId=' + ${item.product.productId}}" class="text-dark d-inline-block" th:text="${item.product.name}"></a></strong>
                                             </td>
                                             <td class="align-middle">
                                                 <img th:src="${item.product.image}" alt="..." width="70" class="img-fluid rounded shadow-sm">
@@ -88,9 +78,6 @@
                                                     <input type="text" name="quantity" th:value="${item.quantity}" id="quantity">
                                                     <button class="btn btn-outline-success" type="submit">Cập nhật</button>
                                                 </form>
-<!--                                                <a href="#"><button class="btnSub">-</button></a>-->
-<!--                                                <strong>${item.quantity}</strong>-->
-<!--                                                <a href="#"><button class="btnAdd">+</button></a>-->
                                             </td>
                                             <td class="align-middle">
                                                 <form th:action="@{/cart}" method="POST">
@@ -110,80 +97,33 @@
                     </div>
                 </div>
 
-                <form th:action="@{/order}" method="POST" class="row p-5 bg-white rounded shadow-sm" style="max-width: 90%; margin: auto;">
-
+                <div class="row p-1 bg-white rounded shadow-sm" style="max-width: 90%; margin: auto;">
                     <div class="col-lg-6">
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin đặt hàng</div>
-                        <div class="p-4">
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control" id="ten" placeholder="Tên" name="firstName" th:value="${session.loginedUser.firstName}" required readonly>
-                                <label for="ten">Tên <span class="red">*</span></label>
-                            </div>
-
-                            <div class="form-floating mb-4">
-                                <input type="tel" class="form-control" id="dienThoai" placeholder="Số điện thoại" name="phone" th:value="${session.loginedUser.phone}" required readonly>
-                                <label for="dienThoai">Số điện thoại <span class="red">*</span></label>
-                            </div>
-
-<!--                            <div class="form-floating mb-4">-->
-<!--                                <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" value="${loginedUser.address}" required>-->
-<!--                                <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>-->
-<!--                            </div>-->
-
-                            <label>
-                                <select name="paymentMethod" class="form-select mb-4" required>
-                                    <option value="" selected disabled>Chọn một phương thức vận chuyển</option>
-                                    <option value="NORMAL">Giao hàng thường</option>
-                                    <option value="EXPRESS">Giao hàng nhanh</option>
-                                </select>
-                            </label>
-
-                            <label>
-                                <select name="shippingMethod" class="form-select mb-4" required>
-                                    <option value="" selected disabled>Chọn một phương thức thanh toán</option>
-                                    <option value="COD">Thanh toán khi nhận hàng</option>
-                                    <option value="MOMO">Thanh toán bằng MOMO</option>
-                                    <option value="VNPAY">Thanh toán bằng VNPAY</option>
-                                </select>
-                            </label>
-                            <!-- <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="text" placeholder="Nhập Voucher" aria-describedby="button-addon3" class="form-control border-0">
-                                <div class="input-group-append border-0">
-                                    <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2">&nbsp;</i>Sử dụng</button>
-                                </div>
-                            </div> -->
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thành tiền</div>
                         <div class="p-4">
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <strong class="text-muted">Tổng tiền hàng</strong>
                                     <strong th:text="${session.cart.totalCurrencyFormat}"></strong>
                                 </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom">
-                                    <strong class="text-muted">Phí vận chuyển</strong>
-                                    <strong>Miễn phí vận chuyển</strong>
-                                </li>
-                                <li class="d-flex justify-content-between py-3 border-bottom">
-                                    <strong class="text-muted">Tổng thanh toán</strong>
-                                    <strong th:text="${session.cart.totalCurrencyFormat}"></strong>
-                                </li>
-
                             </ul>
-                            <button class="w-100 btn btn-primary rounded-pill py-2 btn-block" type="submit" th:if="${session.cart.count != 0}" th:text="'Đặt hàng'"></button>
                         </div>
                     </div>
-                    <input type="hidden" name="totalPrice" th:value="${session.cart.totalCurrencyFormat}">
-                </form>
+                    <div class="col-lg-6">
+                        <div class="p-4">
+                            <ul class="list-unstyled mb-4">
+                                <a class="w-100 btn btn-primary rounded-pill py-2 btn-block" th:if="${session.cart.count != 0}" th:href="@{/checkout}" th:text="'Tiến hành thanh toán'"></a>
+                                <button class="w-100 btn btn-primary rounded-pill py-2 btn-block" th:unless="${session.cart.count != 0}" th:text="'Tiến hành thanh toán'" disabled></button>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <!-- End Page content -->
 
     <!-- Footer -->
-    <div th:replace="~{includes/footer}"></div>
+    <div th:replace="~{includes/customer/footer}"></div>
     <!-- End footer -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -19,7 +19,7 @@ public class LineItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lineItemId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
