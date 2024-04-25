@@ -45,7 +45,7 @@ public class ManagerCategoryController {
         String message;
         String messageError;
         if (categoryService.checkNameExists(name)) {
-            messageError = "Tên danh mục đã tồn tại! Vui lòng điền tên khác.";
+            messageError = "Danh mục [" + name + "] đã tồn tại! Vui lòng chọn tên danh mục khác!";
             redirectAttributes.addFlashAttribute("messageError", messageError);
             redirectAttributes.addFlashAttribute("name", name);
         }

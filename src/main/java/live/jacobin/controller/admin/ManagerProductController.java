@@ -1,8 +1,12 @@
 package live.jacobin.controller.admin;
 
+import live.jacobin.entity.Cart;
 import live.jacobin.entity.Category;
+import live.jacobin.entity.LineItem;
 import live.jacobin.entity.Product;
+import live.jacobin.service.CartService;
 import live.jacobin.service.CategoryService;
+import live.jacobin.service.LineItemService;
 import live.jacobin.service.ProductService;
 import live.jacobin.util.S3Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +28,15 @@ public class ManagerProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final LineItemService lineItemService;
+    private final CartService cartService;
 
     @Autowired
-    public ManagerProductController(final ProductService productService, CategoryService categoryService) {
+    public ManagerProductController(final ProductService productService, CategoryService categoryService, LineItemService lineItemService, CartService cartService) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.lineItemService = lineItemService;
+        this.cartService = cartService;
     }
 
     @GetMapping
@@ -92,7 +100,7 @@ public class ManagerProductController {
             String urlImage = "https://" + S3Util.bucketName + ".s3.amazonaws.com/" + newFileName;
             product.setImage(urlImage);
             productService.saveProduct(product);
-            message = "Thêm thành công sản phẩm có mã [" + idP + "]";
+            message = "Thêm thành công sản phẩm [" + name + "] có mã [" + idP + "]";
             redirectAttributes.addFlashAttribute("message", message);
         } catch (IOException ex) {
             messageError = "Error uploading file: " + ex.getMessage();
@@ -100,6 +108,42 @@ public class ManagerProductController {
         }
 
         return "redirect:/dashboard/manager-product/add-product";
+    }
+
+    @PostMapping("/delete")
+    public String deleteProduct(@RequestParam int productId,
+                                @RequestParam String name,
+                                RedirectAttributes redirectAttributes) {
+        Product product = productService.selectProductById(productId);
+        if (product != null) {
+            List<LineItem> items = lineItemService.selectLineItemByProduct(product);
+            for (LineItem item : items) {
+                Cart cart = cartService.selectCartByLineItem(item);
+                cart.removeItem(item);
+                cartService.saveCart(cart);
+                lineItemService.deleteLineItem(item);
+            }
+
+            String urlImage = product.getImage();
+            int index = urlImage.indexOf(S3Util.urlFolder);
+
+            String message;
+            String messageError;
+            if (index != -1) {
+                urlImage = urlImage.substring(index);
+                try {
+                    S3Util.deleteFile(urlImage);
+                    message = "Xoá thành công sản phẩm [" + productId + " - " + name + "]";
+                    redirectAttributes.addFlashAttribute("message", message);
+                } catch (Exception ex) {
+                    messageError = "Error deleting file: " + ex.getMessage();
+                    redirectAttributes.addFlashAttribute("messageError", messageError);
+                }
+            }
+            productService.deleteProduct(product);
+        }
+
+        return "redirect:/dashboard/manager-product";
     }
 
 }

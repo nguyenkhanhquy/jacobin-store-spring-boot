@@ -24,7 +24,10 @@
 
             <h1 class="h3 mb-3 fw-normal">XÁC MINH EMAIL</h1>
 
-            <div class="text-center"><p class="red"><i th:text="${message}"></i></p></div>
+            <p>
+                <strong class="text-success text-center" th:text="${message}">message</strong>
+                <strong class="text-danger text-center" th:text="${messageError}">messageError</strong>
+            </p>
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="otp"

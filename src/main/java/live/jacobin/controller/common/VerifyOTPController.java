@@ -36,7 +36,7 @@ public class VerifyOTPController {
     public String verifyOTP() {
         HttpSession session = request.getSession();
 
-        if(session.getAttribute("action").equals("forgot-password")) {
+        if(session.getAttribute("action") == "forgot-password") {
             return "common/verify_otp_page";
         }
         
@@ -48,15 +48,15 @@ public class VerifyOTPController {
         HttpSession session = request.getSession();
         String otpSend = (String) session.getAttribute("otpSend");
 
-        String message;
+        String messageError;
         if (otp.equals(otpSend)) {
             session.removeAttribute("otpSend");
             return "redirect:/forgot-password/create-new-password";
         } else {
-            message = "Mã OTP không hợp lệ!";
+            messageError = "Mã OTP không hợp lệ!";
         }
 
-        model.addAttribute("message", message);
+        model.addAttribute("messageError", messageError);
 
         return "common/verify_otp_page";
     }
@@ -78,6 +78,7 @@ public class VerifyOTPController {
         String otpSend = (String) session.getAttribute("otpSend");
 
         String message;
+        String messageError;
 
         if (otp.equals(otpSend)) {
             User user = (User) session.getAttribute("user");
@@ -110,10 +111,9 @@ public class VerifyOTPController {
 
             return "common/success_page";
         } else {
-            message = "Mã OTP không hợp lệ!";
+            messageError = "Mã OTP không hợp lệ!";
+            model.addAttribute("messageError", messageError);
         }
-
-        model.addAttribute("message", message);
 
         return "common/verify_otp_page";
     }
