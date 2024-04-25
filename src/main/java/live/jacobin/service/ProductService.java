@@ -16,8 +16,6 @@ public interface ProductService {
 
     List<Product> selectAllProduct();
 
-    List<Product> selectProductByIdDesc();
-
     List<Product> select20FirstProduct();
 
     List<Product> selectNext10Product(int amount);

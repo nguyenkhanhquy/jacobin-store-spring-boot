@@ -16,6 +16,7 @@ import java.util.Locale;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Product {
 
     @Id
