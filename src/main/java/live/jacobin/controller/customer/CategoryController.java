@@ -4,6 +4,7 @@ import live.jacobin.entity.Category;
 import live.jacobin.entity.Product;
 import live.jacobin.service.CategoryService;
 import live.jacobin.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final ProductService productService;
 
+    @Autowired
     public CategoryController(CategoryService categoryService, ProductService productService) {
         this.categoryService = categoryService;
         this.productService = productService;

@@ -14,7 +14,10 @@ import java.util.Locale;
 @Table(name = "customer_order")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Builder
 public class Order {
 
     @Id
@@ -43,11 +46,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> details;
-
-    public Order() {
-        details = new ArrayList<OrderItem>();
-    }
+    private List<OrderItem> details = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
@@ -71,9 +70,9 @@ public class Order {
         return currency.format(this.getTotal());
     }
 
-//    public void addItem(DetailOrder item) {
-//        details.add(item);
-//        DetailOrderDB.insert(item);
-//    }
+    public OrderItem addItem(OrderItem item) {
+        details.add(item);
+        return item;
+    }
 
 }

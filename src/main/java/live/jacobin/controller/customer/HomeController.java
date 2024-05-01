@@ -9,6 +9,7 @@ import live.jacobin.service.CartService;
 import live.jacobin.service.CategoryService;
 import live.jacobin.service.ProductService;
 import live.jacobin.util.SessionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class HomeController {
     private final ProductService productService;
     private final CartService cartService;
 
+    @Autowired
     public HomeController(HttpServletRequest request, CategoryService categoryService, ProductService productService, CartService cartService) {
         this.request = request;
         this.categoryService = categoryService;

@@ -7,6 +7,7 @@ import live.jacobin.entity.Role;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
 import live.jacobin.util.PasswordEncryptorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class RegisterController {
 
     private final UserService userService;
 
+    @Autowired
     public RegisterController(HttpServletRequest request, UserService userService) {
         this.request = request;
         this.userService = userService;
