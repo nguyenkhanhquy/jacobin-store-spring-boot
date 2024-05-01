@@ -29,7 +29,9 @@ public class OrderController {
     private final OrderService orderService;
 
     @Autowired
-    public OrderController(HttpServletRequest request, CartService cartService, OrderItemService orderItemService, LineItemService lineItemService, OrderService orderService) {
+    public OrderController(HttpServletRequest request, CartService cartService,
+                           OrderItemService orderItemService, LineItemService lineItemService,
+                           OrderService orderService) {
         this.request = request;
         this.cartService = cartService;
         this.orderItemService = orderItemService;
@@ -38,8 +40,55 @@ public class OrderController {
     }
 
     @GetMapping("/order")
-    public String order() {
-        return "redirect:/home";
+    public String showListOrder(Model model) {
+
+        HttpSession	session = request.getSession();
+
+        User user = SessionUtil.getLoginedUser(session);
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        List<Order> listO = orderService.selectOrderByUser(user);
+        model.addAttribute("ListO", listO);
+
+        return "customer/list_order_page";
+    }
+
+    @GetMapping("/detail-order")
+    public String showDetailOrder(@RequestParam(required = false) String orderId,
+                                  Model model) {
+
+        HttpSession	session = request.getSession();
+
+        User user = SessionUtil.getLoginedUser(session);
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        if (orderId == null) {
+            return "redirect:/home";
+        }
+
+        List<Order> listO = orderService.selectOrderByUser(user);
+        int oId = Integer.parseInt(orderId);
+        Order order = null;
+        for (Order o : listO) {
+            if (o.getOrderId() == oId) {
+                order = o;
+                break;
+            }
+        }
+
+        if (order == null) {
+            return "redirect:/order";
+        }
+
+        model.addAttribute("order", order);
+
+        return "customer/detail_order_page";
     }
 
     @PostMapping("/order")
@@ -47,8 +96,9 @@ public class OrderController {
                               @RequestParam String address,
                               @RequestParam String shippingMethod,
                               @RequestParam String paymentMethod,
-                              @RequestParam String totalPrice,
+                              @RequestParam double totalPrice,
                               Model model) {
+
         HttpSession session = request.getSession();
         User user = SessionUtil.getLoginedUser(session);
 

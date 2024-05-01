@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order selectOrderByUser(User user) {
+    public List<Order> selectOrderByUser(User user) {
         return orderRepository.findByUser(user);
     }
 

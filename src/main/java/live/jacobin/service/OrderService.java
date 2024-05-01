@@ -13,7 +13,7 @@ public interface OrderService {
 
     Order selectOrderById(int OrderId);
 
-    Order selectOrderByUser(User user);
+    List<Order> selectOrderByUser(User user);
 
     List<Order> selectAllOrders();
 }

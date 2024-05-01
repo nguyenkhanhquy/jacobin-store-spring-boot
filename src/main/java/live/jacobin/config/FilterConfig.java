@@ -28,6 +28,7 @@ public class FilterConfig {
         registrationBean.addUrlPatterns("/detail-product");
         registrationBean.addUrlPatterns("/cart");
         registrationBean.addUrlPatterns("/checkout");
+        registrationBean.addUrlPatterns("/order");
         return registrationBean;
     }
 
