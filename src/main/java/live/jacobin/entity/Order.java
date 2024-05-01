@@ -3,8 +3,8 @@ package live.jacobin.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,10 @@ import java.util.Locale;
 @Table(name = "customer_order")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Builder
 public class Order {
 
     @Id
@@ -29,7 +32,7 @@ public class Order {
     private Date date;
 
     public String getOrderDateDefaultFormat() {
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT,
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
                 new Locale.Builder().setLanguage("vi").setRegion("VN").build());
         return dateFormat.format(date);
     }
@@ -43,11 +46,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> details;
-
-    public Order() {
-        details = new ArrayList<OrderItem>();
-    }
+    private List<OrderItem> details = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
@@ -55,7 +54,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    private String totalPrice;
+    private double totalPrice;
+
+    public String totalPriceCurrencyFormat() {
+        Locale vietnameseLocale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(vietnameseLocale);
+        return currency.format(totalPrice);
+    }
 
     public double getTotal() {
         double total = 0.0;
@@ -71,9 +76,9 @@ public class Order {
         return currency.format(this.getTotal());
     }
 
-//    public void addItem(DetailOrder item) {
-//        details.add(item);
-//        DetailOrderDB.insert(item);
-//    }
+    public OrderItem addItem(OrderItem item) {
+        details.add(item);
+        return item;
+    }
 
 }

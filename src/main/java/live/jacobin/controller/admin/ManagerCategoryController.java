@@ -86,8 +86,8 @@ public class ManagerCategoryController {
 
     @PostMapping("/edit-category")
     public String editCategory(@RequestParam int categoryId,
-                                 @RequestParam String name,
-                                 RedirectAttributes redirectAttributes) {
+                               @RequestParam String name,
+                               RedirectAttributes redirectAttributes) {
         String message;
         String messageError;
         Category category = categoryService.selectCategoryById(categoryId);

@@ -110,6 +110,79 @@ public class ManagerProductController {
         return "redirect:/dashboard/manager-product/add-product";
     }
 
+    @GetMapping("/edit-product")
+    public String showEditProductPage(@RequestParam(required = false) String productId,
+                                      Model model) {
+        int pId;
+        try {
+            pId = Integer.parseInt(productId);
+        } catch (NumberFormatException e) {
+            return "redirect:/dashboard/manager-product";
+        }
+
+        Product product = productService.selectProductById(pId);
+        if (product == null) {
+            return "redirect:/dashboard/manager-product";
+        }
+
+        // Lấy danh sách Category từ service
+        List<Category> listC = categoryService.selectAllCategory();
+        // Đặt danh sách vào model để truyền tới view
+        model.addAttribute("ListC", listC);
+
+        model.addAttribute("product", product);
+
+        return "admin/product/edit_product_page";
+    }
+
+    @PostMapping("/edit-product")
+    public String editProduct(@RequestParam int productId,
+                              @RequestParam String name,
+                              @RequestParam int categoryId,
+                              @RequestParam String size,
+                              @RequestParam double price,
+                              @RequestParam String title,
+                              @RequestParam String description,
+                              @RequestParam String imageOld,
+                              @RequestParam("file") MultipartFile multipart,
+                              RedirectAttributes redirectAttributes) {
+        String urlImage = imageOld;
+
+        String fileName = multipart.getOriginalFilename();
+
+        String message;
+        String messageError;
+        if (multipart != null && multipart.getSize() > 0) {
+            try {
+                String newFileName = S3Util.urlFolder + productId + fileName.substring(fileName.lastIndexOf('.'));
+                S3Util.uploadFile(newFileName, multipart.getInputStream());
+                urlImage = "https://" + S3Util.bucketName + ".s3.amazonaws.com/" + newFileName;
+            } catch (IOException ex) {
+                messageError = "Error uploading file: " + ex.getMessage();
+                redirectAttributes.addFlashAttribute("messageError", messageError);
+                return "redirect:/dashboard/manager-product";
+            }
+        }
+
+        Category category = categoryService.selectCategoryById(categoryId);
+
+        Product product = productService.selectProductById(productId);
+        product.setName(name);
+        product.setCategory(category);
+        product.setSize(size);
+        product.setPrice(price);
+        product.setTitle(title);
+        product.setDescription(description);
+        product.setImage(urlImage);
+
+        productService.saveProduct(product);
+
+        message = "Chỉnh sửa thành công sản phẩm có mã [" + productId + "]";
+        redirectAttributes.addFlashAttribute("message", message);
+
+        return "redirect:/dashboard/manager-product";
+    }
+
     @PostMapping("/delete")
     public String deleteProduct(@RequestParam int productId,
                                 @RequestParam String name,
