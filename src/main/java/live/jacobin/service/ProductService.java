@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    Product saveProduct(Product product);
+    void saveProduct(Product product);
 
     void deleteProduct(Product product);
 
