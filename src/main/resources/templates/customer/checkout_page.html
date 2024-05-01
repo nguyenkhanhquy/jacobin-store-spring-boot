@@ -103,7 +103,7 @@
                             </div>
 
                             <label>
-                                <select name="paymentMethod" class="form-select mb-4" required>
+                                <select name="shippingMethod" class="form-select mb-4" required>
                                     <option value="" selected disabled>Chọn một phương thức vận chuyển</option>
                                     <option value="NORMAL">Giao hàng thường</option>
                                     <option value="EXPRESS">Giao hàng nhanh</option>
@@ -111,7 +111,7 @@
                             </label>
 
                             <label>
-                                <select name="shippingMethod" class="form-select mb-4" required>
+                                <select name="paymentMethod" class="form-select mb-4" required>
                                     <option value="" selected disabled>Chọn một phương thức thanh toán</option>
                                     <option value="COD">Thanh toán khi nhận hàng</option>
                                     <option value="MOMO">Thanh toán bằng MOMO</option>
@@ -130,13 +130,12 @@
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <strong class="text-muted">Phí vận chuyển</strong>
-                                    <strong>Miễn phí vận chuyển</strong>
+                                    <strong class="costShipping">0 ₫</strong>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom">
                                     <strong class="text-muted">Tổng thanh toán</strong>
-                                    <strong th:text="${session.cart.totalCurrencyFormat}"></strong>
+                                    <strong class="costTotal" th:text="${session.cart.totalCurrencyFormat}"></strong>
                                 </li>
-
                             </ul>
                             <button class="w-100 btn btn-primary rounded-pill py-2 btn-block" type="submit" th:if="${session.cart.count != 0}" th:text="'Đặt hàng'"></button>
                         </div>
@@ -151,6 +150,44 @@
     <!-- Footer -->
     <div th:replace="~{includes/customer/footer}"></div>
     <!-- End footer -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var shippingMethodSelect = document.querySelector('select[name="shippingMethod"]');
+            var costElement = document.querySelector('.costShipping');
+            var costTotalElement = document.querySelector('.costTotal');
+            var totalPriceInput = document.querySelector('input[name="totalPrice"]');
+
+            shippingMethodSelect.addEventListener('change', function() {
+                var selectedOption = this.value;
+                var costText = "0 ₫";
+                var shippingCost = 0;
+
+                if (selectedOption === 'NORMAL') {
+                    costText = "30.000 ₫";
+                    shippingCost = 30000;
+                } else if (selectedOption === 'EXPRESS') {
+                    costText = "50.000 ₫";
+                    shippingCost = 50000;
+                }
+
+                // Update the cost element
+                costElement.innerText = costText;
+
+                // Update the total cost including shipping
+                var totalCost = parseFloat(costTotalElement.innerText.replace(/[^\d]/g, '')) + shippingCost;
+                costTotalElement.innerText = formatCurrency(totalCost);
+
+                // Update the hidden input value
+                totalPriceInput.value = totalCost;
+                console.log(totalCost);
+            });
+            // Function to format currency
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+            }
+        });
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script th:src="@{/js/loadMoreProducts.js}"></script>
