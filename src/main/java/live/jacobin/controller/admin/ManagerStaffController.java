@@ -1,15 +1,15 @@
 package live.jacobin.controller.admin;
 
+import jakarta.servlet.http.HttpSession;
+import live.jacobin.dto.UserDTO;
 import live.jacobin.entity.Role;
 import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
+import live.jacobin.util.PasswordEncryptorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -33,6 +33,61 @@ public class ManagerStaffController {
         model.addAttribute("ListU", listU);
 
         return "admin/staff/manager_staff_page";
+    }
+
+    @GetMapping("/add-staff")
+    public String showAddStaffPage() {
+        return "admin/staff/add_staff_page";
+    }
+
+    @PostMapping("/add-staff")
+    public String addStaff(@RequestParam String firstName,
+                                  @RequestParam String lastName,
+                                  @RequestParam String dateOfBirth,
+                                  @RequestParam String address,
+                                  @RequestParam String email,
+                                  @RequestParam String phone,
+                                  @RequestParam String userName,
+                                  @RequestParam String password,
+                                  @RequestParam String passwordAgain,
+                                  Model model,
+                                  RedirectAttributes redirectAttributes) {
+        User user = User.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .dateOfBirth(dateOfBirth)
+                .address(address)
+                .email(email)
+                .phone(phone)
+                .userName(userName)
+                .build();
+
+        String messageError;
+        if (userService.checkEmailExists(user.getEmail())) {
+            messageError = "Địa chỉ Email đã tồn tại. Vui lòng điền một địa chỉ Email khác.";
+        } else if (userService.checkPhoneExists(user.getPhone())) {
+            messageError = "Số điện thoại đã tồn tại. Vui lòng điền số điện thoại khác.";
+        } else if (userService.checkUserNameExists(user.getUserName())) {
+            messageError = "Tên đăng nhập đã tồn tại. Vui lòng điền tên đăng nhập khác.";
+        } else if (!password.equals(passwordAgain)) {
+            messageError = "Mật khẩu nhập lại không khớp. Vui lòng nhập lại.";
+        } else {
+            user.setPassword(PasswordEncryptorUtil.toSHA1(password));
+            user.setRole(Role.STAFF);
+            userService.saveUser(user);
+
+            user = userService.selectUserByEmail(user.getEmail());
+            String message = "Thêm thành công nhân viên [" + user.getUserId() + " - " + user.getEmail() + "]";
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/dashboard/manager-staff/add-staff";
+        }
+
+        UserDTO userDTO = new UserDTO(user);
+
+        model.addAttribute("user", userDTO);
+        model.addAttribute("messageError", messageError);
+
+        return "admin/staff/add_staff_page";
     }
 
     @PostMapping("/lock")
