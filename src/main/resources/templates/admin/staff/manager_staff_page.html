@@ -99,7 +99,7 @@
 
                                             <th:block th:if="${!u.locked}">
                                                 <div style="display: inline-block;">
-                                                    <form th:action="@{/dashboard/manager-customer/lock}" method="post" id="lockForm">
+                                                    <form th:action="@{/dashboard/manager-staff/lock}" method="post" id="lockForm">
                                                         <input type="hidden" th:name="userId" th:value="${u.userId}" />
                                                         <input type="hidden" th:name="email" th:value="${u.email}" />
                                                         <button type="submit" class="icon-lock"
