@@ -81,10 +81,10 @@ public class ManagerOrderController {
             boolean isBodyHTML = false;
             MailUtilGmail.sendMail(to, from, subject, body, isBodyHTML);
 
-            message = "Xác nhận thành công danh mục có mã [" + orderId + "]";
+            message = "Xác nhận thành công đơn hàng có mã [" + orderId + "]";
             redirectAttributes.addFlashAttribute("message", message);
         } catch (Exception e) {
-            messageError = e.getMessage();
+            messageError = "Xác nhận không thành công đơn hàng có mã [" + orderId + "]";
             redirectAttributes.addFlashAttribute("messageError", messageError);
         }
 

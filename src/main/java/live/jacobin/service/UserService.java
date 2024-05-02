@@ -1,6 +1,9 @@
 package live.jacobin.service;
 
+import live.jacobin.entity.Role;
 import live.jacobin.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -14,10 +17,12 @@ public interface UserService {
 
     User selectUserByEmail(String email);
 
-    public boolean checkEmailExists(String email);
+    boolean checkEmailExists(String email);
 
-    public boolean checkPhoneExists(String phone);
+    boolean checkPhoneExists(String phone);
 
-    public boolean checkUserNameExists(String userName);
+    boolean checkUserNameExists(String userName);
+
+    List<User> selectUserByRole(Role role);
 
 }
