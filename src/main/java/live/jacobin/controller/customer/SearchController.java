@@ -38,6 +38,8 @@ public class SearchController {
         // Đặt danh sách vào model để truyền tới view
         model.addAttribute("ListP", listP);
 
+        model.addAttribute("isSearchPage", true);
+
         return "customer/home_page";
     }
 }
