@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" th:href="@{/css/dashboard_page.css}">
 </head>
-    <body class="sb-nav-fixed">
+<body class="sb-nav-fixed">
     <!-- Navbar -->
     <div th:replace="~{includes/admin/header}"></div>
     <!-- End Navbar -->
@@ -42,9 +42,9 @@
                             <i class="fas fa-table me-1"></i>
                             Danh sách đơn hàng
                             <span class="m-lg-4">
-                                    <strong class="text-success" th:text="${message}"></strong>
-                                    <strong class="text-danger" th:text="${messageError}"></strong>
-                                </span>
+                                <strong class="text-success" th:text="${message}"></strong>
+                                <strong class="text-danger" th:text="${messageError}"></strong>
+                            </span>
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">

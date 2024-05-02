@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import live.jacobin.util.CookieUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ public class LogoutController {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
+    @Autowired
     public LogoutController(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;

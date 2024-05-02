@@ -7,6 +7,7 @@ import live.jacobin.entity.User;
 import live.jacobin.service.CartService;
 import live.jacobin.service.UserService;
 import live.jacobin.util.MailUtilGmail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class VerifyOTPController {
     private final UserService userService;
     private final CartService cartService;
 
+    @Autowired
     public VerifyOTPController(HttpServletRequest request, UserService userService, CartService cartService) {
         this.request = request;
         this.userService = userService;

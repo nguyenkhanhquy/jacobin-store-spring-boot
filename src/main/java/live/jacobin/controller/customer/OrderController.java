@@ -110,7 +110,6 @@ public class OrderController {
                 .phone(phone)
                 .address(address)
                 .user(user)
-                .details(new ArrayList<>())
                 .shippingMethod(ShippingMethod.valueOf(shippingMethod))
                 .paymentMethod(PaymentMethod.valueOf(paymentMethod))
                 .totalPrice(totalPrice)
