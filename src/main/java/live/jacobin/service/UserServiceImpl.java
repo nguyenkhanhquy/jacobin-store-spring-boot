@@ -1,9 +1,12 @@
 package live.jacobin.service;
 
+import live.jacobin.entity.Role;
 import live.jacobin.entity.User;
 import live.jacobin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,6 +56,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkUserNameExists(String userName) {
         return userRepository.existsByUserName(userName);
+    }
+
+    @Override
+    public List<User> selectUserByRole(Role role) {
+        return userRepository.findByRole(role);
     }
 
 }

@@ -9,51 +9,38 @@
                 </a>
 
                 <div class="sb-sidenav-menu-heading">Quản Lý</div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
-                    Danh mục
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseCategory" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Thêm danh mục</a>
-                        <a class="nav-link" th:href="@{/dashboard/manager-category}">Danh sách danh mục</a>
-                    </nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
-                    <div class="sb-nav-link-icon"><i class="fa-brands fa-product-hunt"></i></div>
-                    Sản phẩm
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseProducts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Thêm sản phẩm</a>
-                        <a class="nav-link" th:href="@{/dashboard/manager-product}">Danh sách sản phẩm</a>
-                    </nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                    Người dùng
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Danh sách nhân viên</a>
-                        <a class="nav-link" href="#">Danh sách khách hàng</a>
-                    </nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-receipt"></i></div>
-                    Đơn hàng
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" th:href="@{/dashboard/manager-order}">Danh sách đơn hàng</a>
-                    </nav>
-                </div>
 
-                <div class="sb-sidenav-menu-heading">Thống Kê</div>
+                <a class="nav-link" th:href="@{/dashboard/manager-category}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
+                    Quản lý danh mục
+                </a>
+
+                <a class="nav-link" th:href="@{/dashboard/manager-product}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-shirt"></i></div>
+                    Quản lý sản phẩm
+                </a>
+
+                <a class="nav-link" th:href="@{/dashboard/manager-order}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-receipt fa-fw"></i></div>
+                    Quản lý đơn hàng
+                </a>
+
+                <a class="nav-link" th:href="@{/dashboard/manager-staff}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    Quản lý nhân viên
+                </a>
+
+                <a class="nav-link" th:href="@{/dashboard/manager-customer}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                    Quản lý khách hàng
+                </a>
+
+                <a class="nav-link" th:href="@{/dashboard/manager-revenue}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    Quản lý doanh thu
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Thống Kê Doanh Thu</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="false" aria-controls="collapseCharts">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-simple"></i></div>
                     Dạng biểu đồ

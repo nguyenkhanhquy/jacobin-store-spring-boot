@@ -12892,7 +12892,7 @@ td {
     font-weight: bold;
     display: inline-block;
     outline: none !important;
-    color: blue;
+    color: gray;
     border: none;
     background: none;
     padding: 0;
@@ -12905,6 +12905,18 @@ td {
     display: inline-block;
     outline: none !important;
     color: green;
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 20px;
+    margin: 0 5px;
+}
+
+.icon-lock {
+    font-weight: bold;
+    display: inline-block;
+    outline: none !important;
+    color: #F44336;
     border: none;
     background: none;
     padding: 0;
