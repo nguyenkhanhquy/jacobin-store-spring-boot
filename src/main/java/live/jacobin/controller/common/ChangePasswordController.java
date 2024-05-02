@@ -6,6 +6,7 @@ import live.jacobin.entity.User;
 import live.jacobin.service.UserService;
 import live.jacobin.util.PasswordEncryptorUtil;
 import live.jacobin.util.SessionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class ChangePasswordController {
 
     private final UserService userService;
 
+    @Autowired
     public ChangePasswordController(HttpServletRequest request, UserService userService) {
         this.request = request;
         this.userService = userService;

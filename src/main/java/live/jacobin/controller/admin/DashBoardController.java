@@ -26,12 +26,7 @@ public class DashBoardController {
         // Đặt danh sách vào model để truyền tới view
         model.addAttribute("ListP", listP);
 
-        return "admin/dashboard_page";
-    }
-
-    @GetMapping("/dashboard/tables")
-    public String showTablesPage() {
-        return "admin/dashboard_tables_page";
+        return "admin/dashboard/dashboard_page";
     }
 
 }

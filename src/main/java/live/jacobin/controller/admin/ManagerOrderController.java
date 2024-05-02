@@ -37,6 +37,28 @@ public class ManagerOrderController {
         return "admin/order/manager_order_page";
     }
 
+    @GetMapping("/detail-order")
+    public String showManagerDetailOrderPage(@RequestParam(required = false) String orderId,
+                                             Model model) {
+        int oId;
+        try {
+            oId = Integer.parseInt(orderId);
+        } catch (NumberFormatException e) {
+            return "redirect:/dashboard/manager-order";
+        }
+
+        // Lấy order từ service
+        Order order = orderService.selectOrderById(oId);
+        if (order == null) {
+            return "redirect:/dashboard/manager-order";
+        }
+
+        // Đặt order vào model để truyền tới view
+        model.addAttribute("order", order);
+
+        return "admin/order/manager_detail_order_page";
+    }
+
     @PostMapping("/confirm")
     public String confirmOrder(@RequestParam int orderId,
                                RedirectAttributes redirectAttributes) {
