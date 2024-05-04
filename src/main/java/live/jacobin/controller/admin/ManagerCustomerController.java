@@ -35,6 +35,28 @@ public class ManagerCustomerController {
         return "admin/customer/manager_customer_page";
     }
 
+    @GetMapping("/detail-customer")
+    public String showManagerDetailOrderPage(@RequestParam(required = false) String userId,
+                                             Model model) {
+        int uId;
+        try {
+            uId = Integer.parseInt(userId);
+        } catch (NumberFormatException e) {
+            return "redirect:/dashboard/manager-customer";
+        }
+
+        // Lấy user từ service
+        User user = userService.selectUserById(uId);
+        if (user == null || user.getRole() != Role.CUSTOMER) {
+            return "redirect:/dashboard/manager-customer";
+        }
+
+        // Đặt user vào model để truyền tới view
+        model.addAttribute("user", user);
+
+        return "admin/customer/manager_detail_customer_page";
+    }
+
     @PostMapping("/lock")
     public String lockCustomer(@RequestParam int userId,
                                @RequestParam String email,

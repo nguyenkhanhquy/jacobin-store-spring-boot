@@ -49,13 +49,11 @@
                                 <thead>
                                 <tr>
                                     <th>Mã</th>
-                                    <th>Tên</th>
+                                    <th>Tên khách hàng</th>
                                     <th>Ngày đặt hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ nhận hàng</th>
                                     <th>Tổng tiền</th>
-                                    <th>Thanh toán</th>
-                                    <th>Vận chuyển</th>
                                     <th>Trạng thái</th>
                                     <th class="action-size">Hành động</th>
                                 </tr>
@@ -63,13 +61,11 @@
                                 <tfoot>
                                 <tr>
                                     <th>Mã</th>
-                                    <th>Tên</th>
+                                    <th>Tên khách hàng</th>
                                     <th>Ngày đặt hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ nhận hàng</th>
                                     <th>Tổng tiền</th>
-                                    <th>Thanh toán</th>
-                                    <th>Vận chuyển</th>
                                     <th>Trạng thái</th>
                                     <th class="action-size">Hành động</th>
                                 </tr>
@@ -83,8 +79,6 @@
                                         <td th:text="${o.phone}"></td>
                                         <td th:text="${o.address}"></td>
                                         <td th:text="${o.totalPriceCurrencyFormat()}"></td>
-                                        <td th:text="${o.paymentMethod}"></td>
-                                        <td th:text="${o.shippingMethod}"></td>
                                         <td th:text="${o.orderTrack}"></td>
                                         <td>
                                             <div style="display: inline-block;">
