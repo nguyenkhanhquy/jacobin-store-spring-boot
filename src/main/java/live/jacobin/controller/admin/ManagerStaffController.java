@@ -90,6 +90,28 @@ public class ManagerStaffController {
         return "admin/staff/add_staff_page";
     }
 
+    @GetMapping("/detail-staff")
+    public String showManagerDetailStaffPage(@RequestParam(required = false) String userId,
+                                             Model model) {
+        int uId;
+        try {
+            uId = Integer.parseInt(userId);
+        } catch (NumberFormatException e) {
+            return "redirect:/dashboard/manager-staff";
+        }
+
+        // Lấy user từ service
+        User user = userService.selectUserById(uId);
+        if (user == null || user.getRole() != Role.STAFF) {
+            return "redirect:/dashboard/manager-staff";
+        }
+
+        // Đặt user vào model để truyền tới view
+        model.addAttribute("user", user);
+
+        return "admin/staff/manager_detail_staff_page";
+    }
+
     @PostMapping("/lock")
     public String lockCustomer(@RequestParam int userId,
                                @RequestParam String email,

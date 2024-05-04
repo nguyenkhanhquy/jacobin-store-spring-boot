@@ -36,7 +36,7 @@ public class ManagerCustomerController {
     }
 
     @GetMapping("/detail-customer")
-    public String showManagerDetailOrderPage(@RequestParam(required = false) String userId,
+    public String showManagerDetailCustomerPage(@RequestParam(required = false) String userId,
                                              Model model) {
         int uId;
         try {

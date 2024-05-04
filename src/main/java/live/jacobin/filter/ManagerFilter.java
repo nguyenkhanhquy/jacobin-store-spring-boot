@@ -10,7 +10,7 @@ import live.jacobin.util.SessionUtil;
 
 import java.io.IOException;
 
-public class AdminFilter implements Filter {
+public class ManagerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -25,7 +25,7 @@ public class AdminFilter implements Filter {
         HttpSession session = req.getSession();
         User userInSession = SessionUtil.getLoginedUser(session);
 
-        // Kiểm tra nếu là admin thì cho qua, nếu không thì chuyển hướng sang home
+        // Kiểm tra nếu là manager thì cho qua, nếu không thì chuyển hướng sang home
         if (userInSession == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
         } else if (userInSession.getRole() == Role.MANAGER || userInSession.getRole() == Role.STAFF) {

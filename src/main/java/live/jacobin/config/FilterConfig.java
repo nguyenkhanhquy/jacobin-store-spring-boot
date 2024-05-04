@@ -1,6 +1,6 @@
 package live.jacobin.config;
 
-import live.jacobin.filter.AdminFilter;
+import live.jacobin.filter.ManagerFilter;
 import live.jacobin.filter.CustomerFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<AdminFilter> adminFilter(){
-        FilterRegistrationBean<AdminFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new AdminFilter());
+    public FilterRegistrationBean<ManagerFilter> managerFilter(){
+        FilterRegistrationBean<ManagerFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new ManagerFilter());
         registrationBean.addUrlPatterns("/dashboard/*");
         return registrationBean;
     }
