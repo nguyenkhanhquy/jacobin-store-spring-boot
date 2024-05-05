@@ -1,7 +1,8 @@
 package live.jacobin.config;
 
-import live.jacobin.filter.AdminFilter;
+import live.jacobin.filter.ManagerFilter;
 import live.jacobin.filter.CustomerFilter;
+import live.jacobin.filter.StaffFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +11,19 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<AdminFilter> adminFilter(){
-        FilterRegistrationBean<AdminFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new AdminFilter());
+    public FilterRegistrationBean<ManagerFilter> managerFilter(){
+        FilterRegistrationBean<ManagerFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new ManagerFilter());
+        registrationBean.addUrlPatterns("/dashboard/manager-staff");
+        registrationBean.addUrlPatterns("/dashboard/manager-customer");
+        registrationBean.addUrlPatterns("/dashboard/manager-revenue");
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<StaffFilter> staffFilter(){
+        FilterRegistrationBean<StaffFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new StaffFilter());
         registrationBean.addUrlPatterns("/dashboard/*");
         return registrationBean;
     }

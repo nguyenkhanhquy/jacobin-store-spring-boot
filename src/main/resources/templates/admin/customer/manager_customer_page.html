@@ -49,10 +49,8 @@
                                 <thead>
                                 <tr>
                                     <th>Mã</th>
-                                    <th>Tên đăng nhập</th>
                                     <th>Tên</th>
                                     <th>Họ</th>
-                                    <th>Ngày sinh</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
                                     <th>Trạng thái</th>
@@ -62,13 +60,11 @@
                                 <tfoot>
                                 <tr>
                                     <th>Mã</th>
-                                    <th>Tên đăng nhập</th>
                                     <th>Tên</th>
                                     <th>Họ</th>
-                                    <th>Ngày sinh</th>
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
-                                    <th>Trạng thái</th>
+                                    <th>Trạng thái tài khoản</th>
                                     <th class="action-size">Hành động</th>
                                 </tr>
                                 </tfoot>
@@ -76,10 +72,8 @@
                                 <th:block th:each="u : ${ListU}">
                                     <tr>
                                         <td th:text="${u.userId}"></td>
-                                        <td th:text="${u.userName}"></td>
                                         <td th:text="${u.firstName}"></td>
                                         <td th:text="${u.lastName}"></td>
-                                        <td th:text="${u.dateOfBirth}"></td>
                                         <td th:text="${u.phone}"></td>
                                         <td th:text="${u.email}"></td>
                                         <td>
