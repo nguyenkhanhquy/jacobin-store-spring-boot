@@ -16,4 +16,13 @@ public interface OrderService {
     List<Order> selectOrderByUser(User user);
 
     List<Order> selectAllOrders();
+
+    List<Order> selectOrdersInCurrentMonth();
+
+    List<Order> selectOrdersInYear(int year);
+
+    List<Order> selectOrdersInMonth(int year, int month);
+
+    List<Order> selectOrdersInDay(int year, int month, int day);
+
 }
