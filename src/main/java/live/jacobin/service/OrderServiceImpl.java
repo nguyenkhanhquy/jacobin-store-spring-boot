@@ -56,8 +56,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> selectOrdersInYear(int year) {
-        LocalDate firstDayOfYear = LocalDate.of(year, Month.JANUARY, 1); // Ngày đầu tiên của năm nhập vào
-        LocalDate lastDayOfYear = LocalDate.of(year, Month.DECEMBER, 31); // Ngày cuối cùng của năm nhập vào
+        LocalDate firstDayOfYear = LocalDate.of(year, Month.JANUARY, 1);
+        LocalDate lastDayOfYear = LocalDate.of(year, Month.DECEMBER, 31);
 
         return orderRepository.findByDateBetween(firstDayOfYear, lastDayOfYear);
     }
