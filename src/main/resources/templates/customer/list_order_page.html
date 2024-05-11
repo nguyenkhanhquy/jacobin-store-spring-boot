@@ -28,41 +28,43 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Mã</th>
-                    <th>Tên</th>
-                    <th>Ngày đặt hàng</th>
-                    <th>Số điện thoại</th>
-                    <th>Địa chỉ nhận hàng</th>
-                    <th>Tổng tiền</th>
-                    <th>Thanh toán</th>
-                    <th>Vận chuyển</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="o : ${ListO}">
-                    <td th:text="${o.orderId}"></td>
-                    <td th:text="${o.user.firstName}"></td>
-                    <td th:text="${o.orderDateDefaultFormat}"></td>
-                    <td th:text="${o.phone}"></td>
-                    <td th:text="${o.address}"></td>
-                    <td th:text="${o.totalPriceCurrencyFormat()}"></td>
-                    <td th:text="${o.paymentMethod}"></td>
-                    <td th:text="${o.shippingMethod}"></td>
-                    <td th:text="${o.orderTrack}"></td>
-                    <td class="text-center">
-                        <a th:href="@{'/detail-order?orderId=' + ${o.orderId}}" class="detail">
-                            <i class="fa-solid fa-circle-info" style="font-size: 20px;" data-toggle="tooltip" title="Chi tiết"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            
+            <th:block th:unless="${ListO.isEmpty()}">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ nhận hàng</th>
+                        <th>Tổng tiền</th>
+                        <th>Thanh toán</th>
+                        <th>Vận chuyển</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="o : ${ListO}">
+                        <td th:text="${o.orderId}"></td>
+                        <td th:text="${o.user.firstName}"></td>
+                        <td th:text="${o.orderDateDefaultFormat}"></td>
+                        <td th:text="${o.phone}"></td>
+                        <td th:text="${o.address}"></td>
+                        <td th:text="${o.totalPriceCurrencyFormat()}"></td>
+                        <td th:text="${o.paymentMethod}"></td>
+                        <td th:text="${o.shippingMethod}"></td>
+                        <td th:text="${o.orderTrack}"></td>
+                        <td class="text-center">
+                            <a th:href="@{'/detail-order?orderId=' + ${o.orderId}}" class="detail">
+                                <i class="fa-solid fa-circle-info" style="font-size: 20px;" data-toggle="tooltip" title="Chi tiết"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </th:block>
     </div>
 
     <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
