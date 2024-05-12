@@ -18,12 +18,12 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/dashboard/manager-revenue")
-public class RevenueController {
+public class ManagerRevenueController {
 
     private final OrderService orderService;
 
     @Autowired
-    public RevenueController(final OrderService orderService) {
+    public ManagerRevenueController(final OrderService orderService) {
         this.orderService = orderService;
     }
 
