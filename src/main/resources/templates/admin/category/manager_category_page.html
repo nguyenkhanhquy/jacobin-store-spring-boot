@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon">
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/simple-datatables@9.0.3/dist/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/dashboard_page.css}">
+</head>
+<body class="sb-nav-fixed">
+    <!-- Navbar -->
+    <div th:replace="~{includes/admin/header}"></div>
+    <!-- End Navbar -->
+
+    <div id="layoutSidenav">
+        <!-- Menu left -->
+        <div th:replace="~{includes/admin/left}"></div>
+        <!-- End Menu left -->
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Quản lý danh mục</h1>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Quản lý danh mục</li>
+                        </ol>
+                        <a th:href="@{/dashboard/manager-category/add-category}" class="btn btn-outline-success rounded">
+                            <i class="fa-solid fa-circle-plus fa-fw"></i><strong>Thêm danh mục mới</strong>
+                        </a>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Danh sách danh mục
+                            <span class="m-lg-4">
+                                <strong class="text-success" th:text="${message}"></strong>
+                                <strong class="text-danger" th:text="${messageError}"></strong>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên</th>
+                                    <th class="action-size">Hành động</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên</th>
+                                    <th class="action-size">Hành động</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <th:block th:each="c : ${ListC}">
+                                    <tr>
+                                        <td th:text="${c.categoryId}"></td>
+                                        <td th:text="${c.name}"></td>
+                                        <td>
+                                            <div style="display: inline-block;">
+                                                <a th:href="@{'/dashboard/manager-category/edit-category?categoryId=' + ${c.categoryId}}" class="icon-edit">
+                                                    <i class="fa-solid fa-pen-to-square" data-toggle="tooltip" title="Chỉnh sửa"></i>
+                                                </a>
+                                            </div>
+
+                                            <div style="display: inline-block;">
+                                                <form th:action="@{/dashboard/manager-category/delete}" method="post" id="deleteForm">
+                                                    <input type="hidden" th:name="categoryId" th:value="${c.categoryId}" />
+                                                    <input type="hidden" th:name="name" th:value="${c.name}" />
+                                                    <button type="submit" class="icon-delete"
+                                                            th:attr="onclick='return confirmDeleteCategory(\'' + ${c.categoryId} + '\', \'' + ${c.name} + '\')'">
+                                                        <i class="fa-solid fa-trash" data-toggle="tooltip" title="Xoá"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <div th:replace="~{includes/admin/footer}"></div>
+            <!-- End footer -->
+        </div>
+    </div>
+
+    <script>
+        function confirmDeleteCategory(categoryId, name) {
+            return confirm("Bạn có chắc chắn muốn xoá danh mục [" + categoryId + " - " + name + "] không?");
+        }
+    </script>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/simple-datatables@9.0.3/dist/umd/simple-datatables.js"></script>
+
+    <script th:src="@{/js/sidebarToggle.js}"></script>
+    <script th:src="@{/js/datatablesSimple.js}"></script>
+</body>
+</html>

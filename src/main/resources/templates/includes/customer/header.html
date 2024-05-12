@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}" style="margin: 0;">
+            <img class="logo" th:src="@{/img/logo/logo(black).png}" alt="logo" width="160">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/home}">Trang chủ</a></li>
+
+                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/order}">Đơn hàng</a></li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user">&nbsp;</i>
+                        <th:block th:if="${session.loginedUser == null}">
+                            <span>Tài khoản</span>
+                        </th:block>
+                        <th:block th:if="${session.loginedUser != null}">
+                            <span th:text="${session.loginedUser.firstName} + ' ' + ${session.loginedUser.lastName}"></span>
+                        </th:block>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <th:block th:if="${session.loginedUser == null}">
+                            <li><a class="dropdown-item" th:href="@{/login}">Đăng nhập</a></li>
+                            <li><a class="dropdown-item" th:href="@{/register}">Đăng ký</a></li>
+                        </th:block>
+                        <th:block th:if="${session.loginedUser != null}">
+                            <li><a class="dropdown-item" th:href="@{/profile}">Thông tin tài khoản</a></li>
+                            <li><a class="dropdown-item" th:href="@{/change-password}">Đổi mật khẩu</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
+                        </th:block>
+                    </ul>
+                </li>
+            </ul>
+            <form th:action="@{/search}" class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Nội dung tìm kiếm"
+                       aria-label="Search" name="pName" th:value="${pName}" required>
+                <button class="btn btn-outline-success me-2" type="submit">Tìm</button>
+            </form>
+            <a class="btn btn-success position-relative" th:href="@{/cart}">
+                <i class="fa fa-shopping-cart">&nbsp;</i>Giỏ hàng
+                <th:block th:if="${session.loginedUser != null}">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          th:text="${session.cart != null ? session.cart.count : ''}">
+                    </span>
+                </th:block>
+            </a>
+        </div>
+    </div>
+</nav>

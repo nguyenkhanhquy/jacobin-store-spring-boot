@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Giỏ hàng</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon"/>
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/cart_page.css}">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{includes/customer/header}"></div>
+    <!-- End Navbar -->
+
+    <!-- Page content -->
+    <div class="shopping-cart">
+        <div class="px-4 px-lg-0">
+            <div class="pb-5">
+                <div class="container" style="max-width: 90%; margin: auto;">
+                    <div class="row">
+                        <div class="col-lg-12 p-5 bg-white rounded shadow-sm my-2">
+                            <!-- Shopping cart table -->
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="p-2 px-3">Tên</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="p-2 px-3">Ảnh</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Danh Mục</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Size</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Đơn Giá</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Số tiền</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Số Lượng</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2"></div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item: ${session.cart.items}">
+                                        <tr>
+                                            <td class="align-middle">
+                                                <strong><a th:href="@{'detail-product?productId=' + ${item.product.productId}}" class="text-dark d-inline-block" th:text="${item.product.name}"></a></strong>
+                                            </td>
+                                            <td class="align-middle">
+                                                <img th:src="${item.product.image}" alt="..." width="70" class="img-fluid rounded shadow-sm">
+                                            </td>
+                                            <td class="align-middle" th:text="${item.product.category.name}"></td>
+                                            <td class="align-middle" th:text="${item.product.size}"></td>
+                                            <td class="align-middle" th:text="${item.product.price}"></td>
+                                            <td class="align-middle"><strong th:text="${item.totalCurrencyFormat}"></strong></td>
+                                            <td class="align-middle" style="max-width: 120px;">
+                                                <form th:action="@{/cart}" method="POST">
+                                                    <input type="hidden" name="action" value="update">
+                                                    <input type="hidden" name="productId" th:value="${item.product.productId}">
+                                                    <input type="text" name="quantity" th:value="${item.quantity}" id="quantity">
+                                                    <button class="btn btn-outline-success" type="submit">Cập nhật</button>
+                                                </form>
+                                            </td>
+                                            <td class="align-middle">
+                                                <form th:action="@{/cart}" method="POST">
+                                                    <input type="hidden" name="action" value="update">
+                                                    <input type="hidden" name="productId" th:value="${item.product.productId}">
+                                                    <input type="hidden" name="quantity" value="0">
+                                                    <button class="btn btn-outline-danger" type="submit">Xoá</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End -->
+                    </div>
+                </div>
+
+                <div class="row p-1 bg-white rounded shadow-sm" style="max-width: 90%; margin: auto;">
+                    <div class="col-lg-6">
+                        <div class="p-4">
+                            <ul class="list-unstyled mb-4">
+                                <li class="d-flex justify-content-between py-3 border-bottom">
+                                    <strong class="text-muted">Tổng tiền hàng</strong>
+                                    <strong th:text="${session.cart.totalCurrencyFormat}"></strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-4">
+                            <ul class="list-unstyled mb-4">
+                                <a class="w-100 btn btn-primary rounded-pill py-2 btn-block" th:if="${session.cart.count != 0}" th:href="@{/checkout}" th:text="'Tiến hành thanh toán'"></a>
+                                <button class="w-100 btn btn-primary rounded-pill py-2 btn-block" th:unless="${session.cart.count != 0}" th:text="'Tiến hành thanh toán'" disabled></button>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page content -->
+
+    <!-- Footer -->
+    <div th:replace="~{includes/customer/footer}"></div>
+    <!-- End footer -->
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

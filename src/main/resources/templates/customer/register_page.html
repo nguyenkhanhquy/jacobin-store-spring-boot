@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng ký tài khoản</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon"/>
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/register_page.css}">
+</head>
+<body>
+    <main class="form-register w-100 m-auto">
+        <form class="text-center" th:action="@{/register}" method="POST">
+            <a th:href="@{/home}">
+                <img class="logo" th:src="@{/img/logo/logo(black).png}" alt="logo" width="280">
+            </a>
+
+            <h1 class="h3 mb-3 fw-normal">ĐĂNG KÝ TÀI KHOẢN</h1>
+
+            <th:block th:if="${session.loginedUser == null}">
+                <div class="text-center"><p class="red"><i th:text="${message}"></i></p></div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p><strong>Thông tin khách hàng</strong></p>
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="ten" placeholder="Tên" name="firstName" th:value="${user != null} ? ${user.firstName} : ''" required>
+                            <label for="ten">Tên <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="ho" placeholder="Họ" name="lastName" th:value="${user != null} ? ${user.lastName} : ''" required>
+                            <label for="ho">Họ <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="date" class="form-control" id="ngaySinh" placeholder="Ngày sinh" name="dateOfBirth" th:value="${user != null} ?  ${user.dateOfBirth} : ''" required>
+                            <label for="ngaySinh">Ngày sinh <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${user != null} ?  ${user.address} : ''" required>
+                            <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="email" class="form-control" id="diaChiEmail" placeholder="Email" name="email" th:value="${user != null} ? ${user.email} : ''" required>
+                            <label for="diaChiEmail">Email <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="tel" class="form-control" id="dienThoai" placeholder="Số điện thoại" name="phone" th:value="${user != null} ? ${user.phone} : ''" required>
+                            <label for="dienThoai">Số điện thoại <span class="red">*</span></label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <p><strong>Thông tin tài khoản</strong></p>
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="tenDangNhap" placeholder="Tên đăng nhập" name="userName" th:value="${user != null} ? ${user.userName} : ''" required>
+                            <label for="tenDangNhap">Tên đăng nhập <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="matKhau" placeholder="Mật khẩu" name="password" required>
+                            <label for="matKhau">Mật khẩu <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="matKhauNhapLai" placeholder="Nhập lại mật khẩu" name="passwordAgain" required>
+                            <label for="matKhauNhapLai">Nhập lại mật khẩu <span class="red">*</span></label>
+                        </div>
+
+                        <hr/>
+
+                        <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" id="submit">Đăng ký</button>
+                    </div>
+                </div>
+            </th:block>
+
+            <th:block th:if="${session.loginedUser != null}">
+                <div class="text-center"><p class="red"><i>Bạn cần đăng xuất trước khi tạo tài khoản mới!</i></p></div>
+
+                <a th:href="@{/logout}" class="w-100 btn btn-lg btn-primary mb-2" type="submit">Đăng xuất</a>
+                <a th:href="@{/home}" class="w-100 btn btn-lg btn-primary mb-2" type="submit">Về trang chủ</a>
+            </th:block>
+
+            <p class="mt-3 mb-3 text-muted">&copy; 2024 Jacobin.live</p>
+        </form>
+    </main>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

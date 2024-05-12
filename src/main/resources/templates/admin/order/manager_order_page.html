@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon">
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/simple-datatables@9.0.3/dist/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/dashboard_page.css}">
+</head>
+<body class="sb-nav-fixed">
+    <!-- Navbar -->
+    <div th:replace="~{includes/admin/header}"></div>
+    <!-- End Navbar -->
+
+    <div id="layoutSidenav">
+        <!-- Menu left -->
+        <div th:replace="~{includes/admin/left}"></div>
+        <!-- End Menu left -->
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Quản lý đơn hàng</h1>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Quản lý đơn hàng</li>
+                        </ol>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Danh sách đơn hàng
+                            <span class="m-lg-4">
+                                <strong class="text-success" th:text="${message}"></strong>
+                                <strong class="text-danger" th:text="${messageError}"></strong>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ nhận hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th class="action-size">Hành động</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ nhận hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th class="action-size">Hành động</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <th:block th:each="o : ${ListO}">
+                                    <tr>
+                                        <td th:text="${o.orderId}"></td>
+                                        <td th:text="${o.user.firstName}"></td>
+                                        <td th:text="${o.orderDateDefaultFormat}"></td>
+                                        <td th:text="${o.phone}"></td>
+                                        <td th:text="${o.address}"></td>
+                                        <td th:text="${o.totalPriceCurrencyFormat()}"></td>
+                                        <td th:text="${o.orderTrack}"></td>
+                                        <td>
+                                            <div style="display: inline-block;">
+                                                <a th:href="'/dashboard/manager-order/detail-order?orderId=' + ${o.orderId}" class="icon-detail">
+                                                    <i class="fa-solid fa-circle-info" style="font-size: 20px;" data-toggle="tooltip" title="Chi tiết"></i>
+                                                </a>
+                                            </div>
+
+                                            <th:block th:if="${o.orderTrack.toString() == 'PROCESSING'}">
+                                                <div style="display: inline-block;">
+                                                    <form th:action="@{/dashboard/manager-order/confirm}" method="post" id="confirmForm">
+                                                        <input type="hidden" th:name="orderId" th:value="${o.orderId}" />
+                                                        <button type="submit" class="icon-confirm"
+                                                                th:attr="onclick='return confirmOrder(\'' + ${o.orderId} + '\')'">
+                                                            <i class="fa-solid fa-square-check" style="font-size: 20px;" data-toggle="tooltip" title="Xác nhận"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <div th:replace="~{includes/admin/footer}"></div>
+            <!-- End footer -->
+        </div>
+    </div>
+
+    <script>
+        function confirmOrder(orderId) {
+            return confirm("Bạn có chắc chắn muốn xác nhận đơn hàng có mã [" + orderId + "] không?");
+        }
+    </script>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/simple-datatables@9.0.3/dist/umd/simple-datatables.js"></script>
+
+    <script th:src="@{/js/sidebarToggle.js}"></script>
+    <script th:src="@{/js/datatablesSimple.js}"></script>
+</body>
+</html>

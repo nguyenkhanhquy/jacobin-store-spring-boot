@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Xác minh email</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon"/>
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/verify_otp_page.css}">
+</head>
+<body>
+    <main class="form-signin w-100 m-auto">
+        <form class="text-center" th:action="@{${session.action == 'forgot-password' ? '/verify-otp/confirm-forgot-password' : '/verify-otp/confirm'}}" method="POST">
+            <a th:href="@{/home}">
+                <img class="logo" th:src="@{/img/logo/logo(black).png}" alt="logo" width="280">
+            </a>
+
+            <h1 class="h3 mb-3 fw-normal">XÁC MINH EMAIL</h1>
+
+            <p>
+                <strong class="text-success text-center" th:text="${message}">message</strong>
+                <strong class="text-danger text-center" th:text="${messageError}">messageError</strong>
+            </p>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="otp"
+                       placeholder="OTP" name="otp" required> <label for="otp">Mã OTP <span class="red">*</span></label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Xác nhận</button>
+        </form>
+
+        <form class="text-center" th:action="@{/verify-otp/send-code}" method="POST">
+            <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Gửi mã</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2024 Jacobin.live</p>
+        </form>
+    </main>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

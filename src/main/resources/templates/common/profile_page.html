@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Thông tin tài khoản</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon"/>
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/profile_page.css}">
+</head>
+<body>
+    <main class="form-info w-100 m-auto">
+        <form class="text-center" th:action="@{/profile}" method="POST">
+            <a th:href="@{/home}">
+                <img class="logo" th:src="@{/img/logo/logo(black).png}" alt="logo" width="280">
+            </a>
+
+            <h1 class="h3 mb-3 fw-normal">THÔNG TIN TÀI KHOẢN</h1>
+
+            <th:block th:if="${session.loginedUser == null}">
+                <div class="text-center"><p class="red"><i>Bạn chưa đăng nhập vào hệ thống. Vui lòng đăng nhập!</i></p></div>
+
+                <a th:href="@{/login}" class="w-100 btn btn-lg btn-primary mb-2" type="submit">Tới trang đăng nhập</a>
+            </th:block>
+
+            <th:block th:if="${session.loginedUser != null}">
+                <h5><span class="badge text-bg-primary" th:text="'Tên đăng nhập: ' + ${user.userName}"></span></h5>
+                <div class="text-center"><p class="red"><i th:text="${message}"></i></p></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="ten" placeholder="Tên" name="firstName" th:value="${user != null} ? ${user.firstName} : ''" required disabled>
+                            <label for="ten">Tên <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="ho" placeholder="Họ" name="lastName" th:value="${user != null} ? ${user.lastName} : ''" required disabled>
+                            <label for="ho">Họ <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="date" class="form-control" id="ngaySinh" placeholder="Ngày sinh" name="dateOfBirth" th:value="${user != null} ? ${user.dateOfBirth} : ''" required disabled>
+                            <label for="ngaySinh">Ngày sinh <span class="red">*</span></label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${user != null} ? ${user.address} : ''" required disabled>
+                            <label for="diaChiKhachHang">Địa chỉ <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="email" class="form-control" id="diaChiEmail" placeholder="Email" name="email" th:value="${user != null} ? ${user.email} : ''" required disabled>
+                            <label for="diaChiEmail">Email <span class="red">*</span></label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="tel" class="form-control" id="dienThoai" placeholder="Số điện thoại" name="phone" th:value="${user != null} ? ${user.phone} : ''" required disabled>
+                            <label for="dienThoai">Số điện thoại <span class="red">*</span></label>
+                        </div>
+
+                        <hr/>
+                        <button id="edit-btn" type="button" class="w-100 btn btn-lg btn-primary mb-2">Chỉnh sửa</button>
+
+                        <button id="save-btn" class="w-100 btn btn-lg btn-primary mb-2" type="submit" disabled>Lưu thông tin</button>
+                    </div>
+                </div>
+            </th:block>
+
+            <p class="mt-5 mb-3 text-muted">&copy; 2024 Jacobin.live</p>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('edit-btn').addEventListener('click', function() {
+            document.getElementById('ten').removeAttribute('disabled');
+            document.getElementById('ho').removeAttribute('disabled');
+            document.getElementById('ngaySinh').removeAttribute('disabled');
+            document.getElementById('diaChiKhachHang').removeAttribute('disabled');
+            // document.getElementById('diaChiEmail').removeAttribute('disabled');
+            document.getElementById('dienThoai').removeAttribute('disabled');
+
+            document.getElementById('edit-btn').setAttribute('disabled', 'true');
+            document.getElementById('save-btn').removeAttribute('disabled');
+        });
+    </script>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

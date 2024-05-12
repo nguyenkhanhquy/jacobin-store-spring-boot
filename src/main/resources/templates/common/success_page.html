@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jacobin Store</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon"/>
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/success_page.css}">
+
+    <style>
+        .loading-bar-container {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        .loading-bar {
+            width: 0;
+            height: 100%;
+            background-color: #007bff;
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation: progressAnimation 3s linear forwards;
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-success text-center m-auto">
+        <a th:href="@{/home}">
+            <img class="logo" th:src="@{/img/logo/logo(black).png}" alt="logo" width="280">
+        </a>
+        <h1 class="h3 mb-3 fw-normal" th:text="${message}"></h1>
+
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+
+        <p>Sẽ tự động chuyển về trang chủ sau <span id="countdown">3</span> giây</p>
+
+        <a th:href="@{/home}" class="w-100 btn btn-lg btn-primary mb-2">Trang chủ</a>
+    </div>
+
+    <script>
+        var countdown = document.getElementById('countdown');
+        var count = 3; // Số giây để đếm ngược
+
+        var countdownTimer = setInterval(function() {
+            count -= 1;
+            countdown.innerText = count;
+
+            if (count === 0) {
+                clearInterval(countdownTimer);
+                window.location.href = '/home'; // Chuyển hướng người dùng đến trang chủ
+            }
+        }, 1000);
+    </script>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

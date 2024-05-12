@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon">
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/simple-datatables@9.0.3/dist/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/dashboard_page.css}">
+</head>
+<body class="sb-nav-fixed">
+    <!-- Navbar -->
+    <div th:replace="~{includes/admin/header}"></div>
+    <!-- End Navbar -->
+
+    <div id="layoutSidenav">
+        <!-- Menu left -->
+        <div th:replace="~{includes/admin/left}"></div>
+        <!-- End Menu left -->
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Quản lý doanh thu</h1>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Quản lý doanh thu</li>
+                        </ol>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Doanh thu
+                            <span class="m-lg-4">
+                                <strong class="text-success" th:text="${message}"></strong>
+                                <strong class="text-danger" th:text="${messageError}"></strong>
+                            </span>
+                            <form id="filterForm" th:action="@{/dashboard/manager-revenue}" method="POST">
+                                <div class="row mt-4">
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-4">
+                                            <input type="number" class="form-control" id="ngay" placeholder="Ngày" name="ngay" th:value="${ngay}" disabled>
+                                            <label for="ngay">Ngày</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-4">
+                                            <input type="number" class="form-control" id="thang" placeholder="Tháng" name="thang" th:value="${thang}" disabled>
+                                            <label for="thang">Tháng</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-4">
+                                            <input type="number" class="form-control" id="nam" placeholder="Năm" name="nam" th:value="${nam}" required>
+                                            <label for="nam">Năm</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="w-100 btn btn-lg btn-primary mt-1" type="submit" id="submit">Lọc</button>
+                                        <a class="w-100 btn btn-lg btn-primary mt-1" th:href="@{/dashboard/manager-revenue}">Tháng hiện tại</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Tiền</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Tiền</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <th:block th:each="o : ${ListO}">
+                                    <tr>
+                                        <td th:text="${o.orderId}"></td>
+                                        <td th:text="${o.user.firstName}"></td>
+                                        <td th:text="${o.user.phone}"></td>
+                                        <td th:text="${o.orderDateDefaultFormat}"></td>
+                                        <td th:text="${o.totalPriceCurrencyFormat()}"></td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <strong th:text="'Tổng tiền các hóa đơn: ' + ${totalRevenue}"></strong>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <div th:replace="~{includes/admin/footer}"></div>
+            <!-- End footer -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var namInput = document.getElementById("nam");
+            var thangInput = document.getElementById("thang");
+            var ngayInput = document.getElementById("ngay");
+
+            // Kiểm tra giá trị của ô năm khi trang tải
+            checkNamValue();
+
+            // Hàm kiểm tra giá trị của ô năm và mở ô tháng tương ứng
+            function checkNamValue() {
+                if (namInput.value.trim() !== "") {
+                    // Nếu ô năm không rỗng, mở ô tháng bằng cách loại bỏ thuộc tính disabled
+                    thangInput.removeAttribute("disabled");
+                }
+
+                if (thangInput.value.trim() !== "") {
+                    // Nếu ô tháng không rỗng, mở ô ngày bằng cách loại bỏ thuộc tính disabled
+                    ngayInput.removeAttribute("disabled");
+                }
+            }
+
+            // Bắt sự kiện khi ô năm được nhập
+            namInput.addEventListener("input", function() {
+                // Nếu ô năm không rỗng, cho phép nhập ô tháng và bỏ qua thuộc tính disabled
+                if (this.value !== "") {
+                    thangInput.removeAttribute("disabled");
+                } else {
+                    // Nếu ô năm rỗng, vô hiệu hóa ô tháng và xóa giá trị
+                    thangInput.setAttribute("disabled", true);
+                    thangInput.value = "";
+
+                    // Nếu ô năm rỗng, vô hiệu hóa ô ngày và xóa giá trị
+                    ngayInput.setAttribute("disabled", true);
+                    ngayInput.value = "";
+                }
+            });
+
+            // Bắt sự kiện khi ô tháng được nhập
+            thangInput.addEventListener("input", function() {
+                // Nếu cả ô năm và tháng đều không rỗng, cho phép nhập ô ngày và bỏ qua thuộc tính disabled
+                if (namInput.value !== "" && this.value !== "") {
+                    ngayInput.removeAttribute("disabled");
+                } else {
+                    // Nếu một trong hai ô rỗng, vô hiệu hóa ô ngày và xóa giá trị
+                    ngayInput.setAttribute("disabled", true);
+                    ngayInput.value = "";
+                }
+            });
+        });
+    </script>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/simple-datatables@9.0.3/dist/umd/simple-datatables.js"></script>
+
+    <script th:src="@{/js/sidebarToggle.js}"></script>
+    <script th:src="@{/js/datatablesSimple.js}"></script>
+</body>
+</html>

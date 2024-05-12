@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Thủ tục thanh toán</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon"/>
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/checkout_page.css}">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{includes/customer/header}"></div>
+    <!-- End Navbar -->
+
+    <!-- Page content -->
+    <div class="shopping-cart">
+        <div class="px-4 px-lg-0">
+            <div class="pb-5">
+                <div class="container" style="max-width: 90%; margin: auto;">
+                    <div class="row">
+                        <div class="col-lg-12 p-5 bg-white rounded shadow-sm my-2">
+                            <!-- Shopping cart table -->
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="p-2 px-3">Tên</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="p-2 px-3">Ảnh</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Danh Mục</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Size</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Đơn Giá</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Số tiền</div>
+                                        </th>
+                                        <th scope="col" class="border-0 bg-light">
+                                            <div class="py-2">Số Lượng</div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="item: ${session.cart.items}">
+                                        <tr>
+                                            <td class="align-middle">
+                                                <strong><a th:href="@{'detail-product?productId=' + ${item.product.productId}}" class="text-dark d-inline-block" th:text="${item.product.name}"></a></strong>
+                                            </td>
+                                            <td class="align-middle">
+                                                <img th:src="${item.product.image}" alt="..." width="70" class="img-fluid rounded shadow-sm">
+                                            </td>
+                                            <td class="align-middle" th:text="${item.product.category.name}"></td>
+                                            <td class="align-middle" th:text="${item.product.size}"></td>
+                                            <td class="align-middle" th:text="${item.product.price}"></td>
+                                            <td class="align-middle"><strong th:text="${item.totalCurrencyFormat}"></strong></td>
+                                            <td class="align-middle" th:text="${item.quantity}"></td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End -->
+                    </div>
+                </div>
+
+                <form th:action="@{/order}" method="POST" class="row p-5 bg-white rounded shadow-sm" style="max-width: 90%; margin: auto;">
+
+                    <div class="col-lg-6">
+                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin đặt hàng</div>
+                        <div class="p-4">
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="ten" placeholder="Tên" name="firstName" th:value="${session.loginedUser.firstName}" required readonly>
+                                <label for="ten">Tên <span class="red">*</span></label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="tel" class="form-control" id="dienThoai" placeholder="Số điện thoại" name="phone" th:value="${session.loginedUser.phone}" required readonly>
+                                <label for="dienThoai">Số điện thoại <span class="red">*</span></label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="diaChiKhachHang" placeholder="Địa chỉ" name="address" th:value="${session.loginedUser.address}" required>
+                                <label for="diaChiKhachHang">Địa chỉ nhận hàng <span class="red">*</span></label>
+                            </div>
+
+                            <label>
+                                <select name="shippingMethod" class="form-select mb-4" required>
+                                    <option value="" selected disabled>Chọn một phương thức vận chuyển</option>
+                                    <option value="NORMAL">Giao hàng thường</option>
+                                    <option value="EXPRESS">Giao hàng nhanh</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                <select name="paymentMethod" class="form-select mb-4" required>
+                                    <option value="" selected disabled>Chọn một phương thức thanh toán</option>
+                                    <option value="COD">Thanh toán khi nhận hàng</option>
+                                    <option value="MOMO">Thanh toán bằng MOMO</option>
+                                    <option value="VNPAY">Thanh toán bằng VNPAY</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thành tiền</div>
+                        <div class="p-4">
+                            <ul class="list-unstyled mb-4">
+                                <li class="d-flex justify-content-between py-3 border-bottom">
+                                    <strong class="text-muted">Tổng tiền hàng</strong>
+                                    <strong th:text="${session.cart.totalCurrencyFormat}"></strong>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom">
+                                    <strong class="text-muted">Phí vận chuyển</strong>
+                                    <strong class="costShipping">0 ₫</strong>
+                                </li>
+                                <li class="d-flex justify-content-between py-3 border-bottom">
+                                    <strong class="text-muted">Tổng thanh toán</strong>
+                                    <strong class="costTotal" th:text="${session.cart.totalCurrencyFormat}"></strong>
+                                </li>
+                            </ul>
+                            <button class="w-100 btn btn-primary rounded-pill py-2 btn-block" type="submit" th:if="${session.cart.count != 0}" th:text="'Đặt hàng'"></button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="totalPrice" th:value="${session.cart.totalCurrencyFormat}">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Page content -->
+
+    <!-- Footer -->
+    <div th:replace="~{includes/customer/footer}"></div>
+    <!-- End footer -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var shippingMethodSelect = document.querySelector('select[name="shippingMethod"]');
+            var costElement = document.querySelector('.costShipping');
+            var costTotalElement = document.querySelector('.costTotal');
+            var totalPriceInput = document.querySelector('input[name="totalPrice"]');
+
+            shippingMethodSelect.addEventListener('change', function() {
+                var selectedOption = this.value;
+                var costText = "0 ₫";
+                var shippingCost = 0;
+
+                if (selectedOption === 'NORMAL') {
+                    costText = "30.000 ₫";
+                    shippingCost = 30000;
+                } else if (selectedOption === 'EXPRESS') {
+                    costText = "50.000 ₫";
+                    shippingCost = 50000;
+                }
+
+                // Update the cost element
+                costElement.innerText = costText;
+
+                // Update the total cost including shipping
+                var totalCost = parseFloat(costTotalElement.innerText.replace(/[^\d]/g, '')) + shippingCost;
+                costTotalElement.innerText = formatCurrency(totalCost);
+
+                // Update the hidden input value
+                totalPriceInput.value = totalCost;
+            });
+            // Function to format currency
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+            }
+        });
+    </script>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

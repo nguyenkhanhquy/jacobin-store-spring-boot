@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" type="image/x-icon">
+
+    <!-- bootstrap@5.3.3/dist/css/bootstrap.min.css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/simple-datatables@9.0.3/dist/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/dashboard_page.css}">
+</head>
+<body class="sb-nav-fixed">
+    <!-- Navbar -->
+    <div th:replace="~{includes/admin/header}"></div>
+    <!-- End Navbar -->
+
+    <div id="layoutSidenav">
+        <!-- Menu left -->
+        <div th:replace="~{includes/admin/left}"></div>
+        <!-- End Menu left -->
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Chỉnh sửa danh mục</h1>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/dashboard/manager-category}">Quản lý danh mục</a></li>
+                            <li class="breadcrumb-item active">Chỉnh sửa danh mục</li>
+                        </ol>
+                    </div>
+                    <div class="container">
+                        <div class="table-wrapper">
+                            <strong class="text-success" th:text="${message}"></strong>
+                            <strong class="text-danger" th:text="${messageError}"></strong>
+                            <form th:action="@{/dashboard/manager-category/edit-category}" method="POST">
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-4">
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="id" placeholder="Mã danh mục" name="categoryId" th:value="${category.categoryId}" readonly>
+                                                <label for="id">Mã danh mục <span class="red">*</span></label>
+                                            </div>
+                                            <div class="form-floating mb-4">
+                                                <input type="text" class="form-control" id="ten" placeholder="Tên danh mục" name="name" th:value="${category.name}" required>
+                                                <label for="ten">Tên danh mục <span class="red">*</span></label>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <button class="w-100 btn btn-lg btn-success mb-2" type="submit">Xác nhận</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <div th:replace="~{includes/admin/footer}"></div>
+            <!-- End footer -->
+        </div>
+    </div>
+
+    <!-- bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/simple-datatables@9.0.3/dist/umd/simple-datatables.js"></script>
+
+    <script th:src="@{/js/sidebarToggle.js}"></script>
+    <script th:src="@{/js/datatablesSimple.js}"></script>
+</body>
+</html>

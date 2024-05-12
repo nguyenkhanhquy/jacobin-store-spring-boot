@@ -1,0 +1,13 @@
+#quantity {
+    text-align: center;
+    max-width: 80px;
+    margin-right: 8px;
+}
+
+.red {
+    color: red;
+}
+
+form {
+    display: flex;
+}
