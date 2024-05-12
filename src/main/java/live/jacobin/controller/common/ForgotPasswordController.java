@@ -72,7 +72,7 @@ public class ForgotPasswordController {
         if (!newPassword.equals(newPasswordAgain)) {
             message = "Mật khẩu nhập lại không khớp.";
         } else {
-            message = "Đặt lại mật khẩu mới thành công!";
+            message = "Tạo mật khẩu mới thành công!";
             newPassword = PasswordEncryptorUtil.toSHA1(newPassword);
             user.setPassword(newPassword);
             userService.saveUser(user);
