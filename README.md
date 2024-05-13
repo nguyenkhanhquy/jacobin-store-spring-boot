@@ -12,41 +12,41 @@ Jacobin Store is a web application designed for selling clothing items in an e-c
 
 ## Key Features
 
-**Register:** Allows users to create new customer accounts in the system by providing necessary personal information such as username, email address, password, ....
+- **Register:** Allows users to create new customer accounts in the system by providing necessary personal information such as username, email address, password, ....
 
-**Login:** Users can login to their accounts by entering their registered username and password.
+- **Login:** Users can log in to their accounts by entering their registered username and password.
 
-**Logout:** Users can logout from the currently logged-in account on the system.
+- **Logout:** Users can log out from the currently logged-in account on the system.
 
-**Update Account Information:** Users can update their personal information such as name, address, phone number, ...
+- **Update Account Information:** Users can update their personal information such as name, address, phone number, ...
 
-**Change Password:** Allows users to change their current password by providing the old password and entering a new one.
+- **Change Password:** Allows users to change their current password by providing the old password and entering a new one.
 
-**Forgot password:** If a user forgets their password, they can request a password reset by entering their registered email address. The system will send an OTP authentication code to the user's email. After confirming the OTP code, the user can create a new password.
+- **Forgot password:** If a user forgets their password, they can request a password reset by entering their registered email address. The system will send an OTP authentication code to the user's email. After confirming the OTP code, the user can create a new password.
 
-**Confirm OTP (One Time Password):** To ensure safety, users need to verify their identity through a one time password (OTP) sent to email before performing sensitive actions such as resetting the password Or register a new account.
+- **Confirm OTP (One Time Password):** To ensure safety, users need to verify their identity through a one time password (OTP) sent to email before performing sensitive actions such as resetting the password Or register a new account.
 
-**Product Categories:** Users can easily browse through various product categories such as shirts, t-shirts, jeans, dresses, and more.
+- **Product Categories:** Users can easily browse through various product categories such as shirts, t-shirts, jeans, dresses, and more.
 
-**Product Search:** Supports quick search of desired products through integrated search functionality.
+- **Product Search:** Supports quick search of desired products through integrated search functionality.
 
-**Shopping Cart:** Users can add products to their shopping cart and manage the quantity of items before proceeding to checkout.
+- **Shopping Cart:** Users can add products to their shopping cart and manage the quantity of items before proceeding to checkout.
 
-**Order Management:** Users can view and track the status of their orders after placing them.
+- **Order Management:** Users can view and track the status of their orders after placing them.
 
-**Product Preview:** Provides images and detailed information about products to allow users to preview before making a purchase.
+- **Product Preview:** Provides images and detailed information about products to allow users to preview before making a purchase.
 
-**Category Management:** Staff members can manage product categories by adding, editing, or deleting them as necessary. This includes creating new categories, updating existing ones, and removing obsolete categories.
+- **Category Management:** Staff members can manage product categories by adding, editing, or deleting them as necessary. This includes creating new categories, updating existing ones, and removing obsolete categories.
 
-**Product Management:** Staff members are responsible for managing products within the system. This involves tasks such as adding new products, updating product information (e.g., name, description, price), managing inventory levels, and removing discontinued products.
+- **Product Management:** Staff members are responsible for managing products within the system. This involves tasks such as adding new products, updating product information (e.g., name, description, price), managing inventory levels, and removing discontinued products.
 
-**Order Management:** Staff members handle order management tasks such as viewing incoming orders, updating order status (e.g., processing, shipped, delivered).
+- **Order Management:** Staff members handle order management tasks such as viewing incoming orders, updating order status (e.g., processing, shipped, delivered).
 
-**Staff management:** Managers have the right to manage staffs such as adding new staffs and locking staffs accounts.
+- **Staff management:** Managers have the right to manage staffs such as adding new staffs and locking staffs accounts.
 
-**Customer Management:** Managers have the right to manage customer such as view customer profiles and locking customer accounts.
+- **Customer Management:** Managers have the right to manage customer such as view customer profiles and locking customer accounts.
 
-**Revenue management:** Managers can track revenue by specific date, month, year.
+- **Revenue management:** Managers can track revenue by specific date, month, year.
 
 ## Technology Stack
 
