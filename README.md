@@ -4,11 +4,11 @@ Jacobin Store is a web application designed for selling clothing items in an e-c
 
 ## Use Case Diagram
 
-![Use Case Diagram](./assets/usecase_diagram.png)
+![Use Case Diagram](./assets/usecase_diagram.jpg)
 
 ## Class Diagram
 
-![Class Diagram](./assets/class_diagram.png)
+![Class Diagram](./assets/class_diagram.jpg)
 
 ## Key Features
 
