@@ -2,6 +2,18 @@
 
 Jacobin Store is a web application designed for selling clothing items in an e-commerce setup. This application facilitates convenient and easy online shopping for users.
 
+## Table of Contents
+
+1. [Use Case Diagram](#use-case-diagram)
+1. [Class Diagram](#class-diagram)
+1. [Key Features](#key-features)
+1. [Prerequisites](#prerequisites)
+1. [Installation](#installation)
+1. [Technology Stack](#technology-stack)
+1. [Contributors](#contributors)
+1. [Author](#author)
+1. [License](#license)
+
 ## Use Case Diagram
 
 ![Use Case Diagram](./assets/usecase_diagram.jpg)
@@ -48,12 +60,7 @@ Jacobin Store is a web application designed for selling clothing items in an e-c
 
 - **Revenue management:** Managers can track revenue by specific date, month, year.
 
-## Technology Stack
-
-- HTML, CSS, JavaScript, Thymeleaf
-- Java, Spring Framework, Spring Boot, Spring Data JPA, Hibernate, MySQL
-
-## Requirements
+## Prerequisites
 
 - Java Development Kit (JDK) 21 or later
 - Maven: 3.9.6
@@ -75,12 +82,27 @@ Jacobin Store is a web application designed for selling clothing items in an e-c
     mvn spring-boot:run
     ```
 
+## Technology Stack
+
+- Front-End: HTML, CSS, JavaScript, Thymeleaf.
+- Programming Language: Java.
+- Frameworks/Libraries: Spring Framework, Spring Boot, Spring Data JPA, Hibernate.
+- Database: MySQL.
+- IDE: IntelliJ IDEA.
+- Deployment: Heroku.
+- Cloud Storage: AWS S3.
+
 ## Contributors
 
 - [@nguyenkhanhquy](https://github.com/nguyenkhanhquy)
 - [@NguyenDink](https://github.com/NguyenDink)
 - [@DySn0512](https://github.com/DySn0512)
 - [@nghiepnt2003](https://github.com/nghiepnt2003)
+
+## Author
+
+- Author Name: `Nguyễn Khánh Quy`
+- Email: <nguyenkhanhquy123@gmail.com>
 
 ## License
 
