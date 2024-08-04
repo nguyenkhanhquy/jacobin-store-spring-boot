@@ -1,6 +1,6 @@
 # Jacobin Store Web Application
 
-Jacobin Store is a web application designed for selling clothing items in an e-commerce setup. This application facilitates convenient and easy online shopping for users.
+Experience a seamless online fashion shopping journey with our modern e-commerce platform, built using Thymeleaf, Spring Boot, and MySQL as Database.
 
 ## Table of Contents
 
